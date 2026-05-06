@@ -5,1750 +5,459 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Digital Growth Proposal — Vishita : The Elegant Choice</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-  :root {
-    --saffron: #E8621A;
-    --saffron-light: #F5843E;
-    --saffron-pale: #FDF0E8;
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --cream: #FBF7F0;
-    --dark: #1A1208;
-    --dark-mid: #2D1F0A;
-    --charcoal: #3D3228;
-    --text-body: #4A3F35;
-    --text-light: #7A6B5E;
-    --border: #E8DDD0;
-    --white: #FFFFFF;
-  }
+:root{
+  --saffron:#E8621A;--saffron-light:#F5843E;--saffron-pale:#FDF0E8;
+  --gold:#C9A84C;--gold-light:#E8C97A;--cream:#FBF7F0;
+  --dark:#1A1208;--charcoal:#3D3228;--text-body:#4A3F35;--text-light:#7A6B5E;
+  --border:#E8DDD0;--white:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-body);line-height:1.7;overflow-x:hidden}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text-body);
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+/* ── THREAD PROGRESS BAR ── */
+#threadBar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--saffron),var(--gold));z-index:999;box-shadow:0 0 8px rgba(232,98,26,.5);transition:width .08s linear}
 
-  /* ── SILK THREAD JOURNEY ── */
-  .thread-journey {
-    position: fixed;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 90;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    height: 70vh;
-  }
-  .thread-track {
-    position: relative;
-    width: 2px;
-    flex: 1;
-    background: rgba(201,168,76,0.15);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .thread-fill {
-    position: absolute;
-    top: 0; left: 0; width: 100%;
-    background: linear-gradient(180deg, var(--saffron), var(--gold));
-    border-radius: 2px;
-    transition: height 0.08s linear;
-    box-shadow: 0 0 6px rgba(232,98,26,0.5);
-  }
-  .thread-shuttle {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    background: var(--gold);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--gold), 0 0 24px rgba(201,168,76,0.4);
-    transition: top 0.08s linear;
-    z-index: 2;
-  }
-  .thread-waypoints {
-    position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-  .wp {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .wp-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.25);
-    border: 1px solid rgba(201,168,76,0.4);
-    flex-shrink: 0;
-    transition: all 0.4s ease;
-  }
-  .wp.active .wp-dot {
-    background: var(--gold);
-    box-shadow: 0 0 8px var(--gold);
-    transform: scale(1.4) translateX(-50%);
-  }
-  .wp-label {
-    position: absolute;
-    left: 16px;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(201,168,76,0);
-    white-space: nowrap;
-    transition: color 0.4s;
-    font-weight: 600;
-  }
-  .wp.active .wp-label { color: rgba(201,168,76,0.7); }
+/* ── THREAD SIDEBAR ── */
+#threadSidebar{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;align-items:center;height:68vh}
+.t-spool{width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.t-spool::after{content:'';width:4px;height:4px;border-radius:50%;background:rgba(201,168,76,.4)}
+.t-track{position:relative;width:2px;flex:1;background:rgba(201,168,76,.12);border-radius:2px;overflow:hidden}
+.t-fill{position:absolute;top:0;left:0;width:100%;background:linear-gradient(180deg,var(--saffron),var(--gold));border-radius:2px;box-shadow:0 0 6px rgba(232,98,26,.5)}
+.t-shuttle{position:absolute;left:50%;transform:translateX(-50%);width:9px;height:9px;background:var(--gold);border-radius:50%;box-shadow:0 0 10px var(--gold),0 0 20px rgba(201,168,76,.4)}
+.t-wp{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center}
+.t-wp-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.3);transition:all .4s;flex-shrink:0}
+.t-wp.active .t-wp-dot{background:var(--gold);box-shadow:0 0 7px var(--gold);transform:scale(1.5)}
+.t-wp-label{position:absolute;left:12px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,168,76,0);white-space:nowrap;font-weight:600;transition:color .4s}
+.t-wp.active .t-wp-label{color:rgba(201,168,76,.65)}
+@media(max-width:900px){#threadSidebar{display:none}}
 
-  .thread-top-spool, .thread-bottom-spool {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 2px solid rgba(201,168,76,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .thread-top-spool::after, .thread-bottom-spool::after {
-    content: '';
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.4);
-  }
+/* ── STICKY NAV ── */
+#stickyNav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,7,4,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 40px;display:flex;justify-content:space-between;align-items:center;transform:translateY(-100%);transition:transform .4s ease}
+#stickyNav.visible{transform:translateY(0)}
+.nav-brand{font-size:14px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white)}
+.nav-brand span{color:var(--saffron)}
+.nav-brand span.g{color:var(--gold)}
+.nav-for{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:1px}
 
-  /* Mobile: top progress bar instead */
-  .thread-progress-bar {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-    z-index: 999;
-    box-shadow: 0 0 8px rgba(232,98,26,0.5);
-    transition: width 0.08s linear;
-  }
+/* ── COVER ── */
+.cover{min-height:100vh;background:var(--dark);position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 40px;overflow:hidden}
+#silkCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.cover-inner{position:relative;z-index:2;max-width:800px}
+.cover-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.4);padding:8px 20px;border-radius:2px;margin-bottom:48px;animation:fadeUp .8s ease both}
+.cover-brand{margin-bottom:36px;animation:fadeUp .8s .1s ease both}
+.brand-logo{font-size:22px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--white)}
+.brand-logo .a{color:var(--saffron)}.brand-logo .g{color:var(--gold)}
+.brand-tagline{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:6px}
+.cover h1{font-family:'Playfair Display',serif;font-size:clamp(34px,6vw,62px);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:24px;animation:fadeUp .8s .2s ease both}
+.cover h1 em{font-style:italic;background:linear-gradient(90deg,var(--saffron-light),var(--gold-light),var(--saffron-light));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite}
+@keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+.cover-sub{font-size:18px;color:rgba(255,255,255,.55);max-width:540px;margin:0 auto 52px;font-weight:300;animation:fadeUp .8s .3s ease both}
+.cover-div{width:60px;height:2px;background:linear-gradient(90deg,var(--saffron),var(--gold));margin:0 auto 36px;animation:fadeUp .8s .32s ease both}
+.cover-meta{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .4s ease both}
+.cover-meta-item{text-align:center}
+.cm-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.cm-val{font-size:14px;color:rgba(255,255,255,.8);font-weight:500}
+.cover-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;color:rgba(255,255,255,.25);font-size:11px;letter-spacing:2px;text-transform:uppercase}
 
-  @media (max-width: 900px) {
-    .thread-journey { display: none; }
-    .thread-progress-bar { display: block; }
-  }
+/* ── SECTIONS ── */
+.section{padding:100px 40px;max-width:1100px;margin:0 auto}
+.section-full{padding:100px 40px}
+.sl{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--saffron);margin-bottom:16px}
+.st{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--dark);line-height:1.2;margin-bottom:20px}
+.st em{font-style:italic;color:var(--saffron)}
+.si{font-size:17px;color:var(--text-light);max-width:640px;font-weight:300;line-height:1.8}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold));margin:24px 0 48px;border-radius:2px}
 
-  /* ── COVER PAGE ── */
-  .cover {
-    min-height: 100vh;
-    background: var(--dark);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 60px 40px;
-    overflow: hidden;
-  }
-  .cover::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,98,26,0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,168,76,0.12) 0%, transparent 60%);
-  }
-  .cover-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.04;
-    background-image:
-      repeating-linear-gradient(45deg, var(--saffron) 0, var(--saffron) 1px, transparent 0, transparent 50%),
-      repeating-linear-gradient(-45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
-    background-size: 30px 30px;
-    will-change: transform;
-  }
+/* ── ORNAMENT ── */
+.ornament{display:flex;align-items:center;gap:16px;padding:36px 40px;max-width:1100px;margin:0 auto}
+.orn-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent)}
+.orn-sym{color:rgba(201,168,76,.5);font-size:9px;letter-spacing:4px}
 
-  /* Decorative rings in hero */
-  .ring {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .ring-1 {
-    width: 500px; height: 500px;
-    border: 1px solid rgba(201,168,76,0.07);
-    animation: ring-pulse 6s ease-in-out infinite;
-  }
-  .ring-2 {
-    width: 700px; height: 700px;
-    border: 1px solid rgba(232,98,26,0.05);
-    animation: ring-pulse 6s ease-in-out 1s infinite;
-  }
-  .ring-3 {
-    width: 900px; height: 900px;
-    border: 1px solid rgba(201,168,76,0.03);
-    animation: ring-pulse 6s ease-in-out 2s infinite;
-  }
-  @keyframes ring-pulse {
-    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
-  }
+/* ── PROBLEM ── */
+.problem-bg{background:var(--dark);position:relative;overflow:hidden}
+.problem-bg::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(232,98,26,.08) 0,transparent 70%)}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;margin-top:60px}
+.problem-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:40px 36px;transition:background .3s,border-color .3s,transform .08s,box-shadow .3s;cursor:default;will-change:transform}
+.problem-card:hover{background:rgba(255,255,255,.07);border-color:rgba(232,98,26,.3);box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 30px rgba(232,98,26,.08)}
+.p-num{font-family:'Playfair Display',serif;font-size:56px;font-weight:700;color:rgba(232,98,26,.15);line-height:1;margin-bottom:20px}
+.p-title{font-size:16px;font-weight:600;color:var(--white);margin-bottom:12px;line-height:1.4}
+.p-desc{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7}
 
-  /* Fiber particles */
-  .fiber-particle {
-    position: absolute;
-    border-radius: 100px;
-    pointer-events: none;
-    animation: fiber-float linear infinite;
-  }
-  @keyframes fiber-float {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    8% { opacity: 1; }
-    92% { opacity: 1; }
-    100% { transform: translateY(-100px) rotate(540deg); opacity: 0; }
-  }
+/* ── STRATEGY ── */
+.strategy-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:60px}
+.strategy-visual{background:var(--dark);border-radius:4px;padding:48px 40px;position:relative;overflow:hidden;will-change:transform}
+.strategy-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold))}
+.s-point{display:flex;gap:20px;margin-bottom:32px;align-items:flex-start}
+.s-point:last-child{margin-bottom:0}
+.s-icon{width:36px;height:36px;background:rgba(232,98,26,.15);border:1px solid rgba(232,98,26,.3);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;transition:transform .3s,background .3s}
+.s-point:hover .s-icon{transform:scale(1.15) rotate(-6deg);background:rgba(232,98,26,.25)}
+.s-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}
+.s-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
 
-  .cover-content { position: relative; z-index: 2; max-width: 800px; will-change: transform; }
+/* ── SERVICES ── */
+.services-container{margin-top:60px}
+.service-block{display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:48px 0;border-bottom:1px solid var(--border);position:relative}
+.service-block:last-child{border-bottom:none}
+.service-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(180deg,var(--saffron),var(--gold));opacity:.15;transition:width .4s;border-radius:2px}
+.service-block:hover::before{width:3px}
+.s-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--border);line-height:1;padding-top:4px;transition:color .3s}
+.service-block:hover .s-num{color:rgba(232,98,26,.25)}
+.s-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--saffron);background:var(--saffron-pale);padding:4px 12px;border-radius:2px;margin-bottom:12px}
+.s-title2{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--dark);margin-bottom:12px;line-height:1.3}
+.s-desc2{font-size:15px;color:var(--text-light);max-width:560px;line-height:1.8;margin-bottom:24px}
+.s-deliverables{display:flex;flex-wrap:wrap;gap:8px}
+.dtag{font-size:12px;color:var(--charcoal);background:var(--white);border:1px solid var(--border);padding:5px 12px;border-radius:20px;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.dtag:hover{background:var(--saffron-pale);border-color:var(--saffron);color:var(--saffron);transform:translateY(-2px)}
 
-  .cover-tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.4);
-    padding: 8px 20px;
-    border-radius: 2px;
-    margin-bottom: 48px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .cover-brand {
-    margin-bottom: 40px;
-    animation: fadeUp 0.8s 0.1s ease both;
-  }
-  .brand-logo {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-  .brand-logo span.accent { color: var(--saffron); }
-  .brand-logo span.gold { color: var(--gold); }
-  .brand-tagline {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-top: 6px;
-  }
-  .cover h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 24px;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-  .cover h1 em {
-    font-style: italic;
-    background: linear-gradient(90deg, var(--saffron-light), var(--gold-light), var(--saffron-light));
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer-sweep 3s ease-in-out infinite;
-  }
-  @keyframes shimmer-sweep {
-    0% { background-position: 100% 0; }
-    100% { background-position: -100% 0; }
-  }
-  .cover-subtitle {
-    font-size: 18px;
-    color: rgba(255,255,255,0.6);
-    max-width: 560px;
-    margin: 0 auto 56px;
-    font-weight: 300;
-    animation: fadeUp 0.8s 0.3s ease both;
-  }
-  .cover-divider {
-    width: 60px; height: 2px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-    margin: 0 auto 40px;
-    animation: fadeUp 0.8s 0.35s ease both;
-  }
-  .cover-meta {
-    display: flex;
-    gap: 48px;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: fadeUp 0.8s 0.4s ease both;
-  }
-  .cover-meta-item { text-align: center; }
-  .cover-meta-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 4px;
-  }
-  .cover-meta-value {
-    font-size: 14px;
-    color: rgba(255,255,255,0.85);
-    font-weight: 500;
-  }
-  .cover-scroll {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite;
-    color: rgba(255,255,255,0.3);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+/* ── GMB ── */
+.gmb-bg{background:linear-gradient(135deg,#0F0A04 0%,#1A1208 50%,#0F0A04 100%);position:relative;overflow:hidden}
+.gmb-bg::after{content:'';position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.06) 0,transparent 70%)}
+.gmb-phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:60px;position:relative;z-index:1}
+.gmb-phase{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:36px 32px;border-radius:4px;transition:border-color .3s,transform .08s,box-shadow .3s;will-change:transform;cursor:default}
+.gmb-phase:hover{border-color:rgba(232,98,26,.3);box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.ph-header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.ph-circle{width:40px;height:40px;background:linear-gradient(135deg,var(--saffron),var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--white);flex-shrink:0}
+.ph-title{font-size:16px;font-weight:600;color:var(--white);line-height:1.3}
+.ph-sub{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase}
+.ph-items{list-style:none}
+.ph-item{font-size:13px;color:rgba(255,255,255,.55);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.ph-item:last-child{border-bottom:none}
+.ph-item::before{content:'→';color:var(--saffron);font-size:11px;flex-shrink:0;margin-top:2px}
 
-  /* Craft badge in hero */
-  .craft-badge {
-    position: absolute;
-    top: 32px;
-    right: 40px;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    animation: fadeUp 1s 0.6s ease both;
-  }
-  .craft-badge-ring {
-    width: 70px; height: 70px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,168,76,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: spin-slow 20s linear infinite;
-    position: relative;
-  }
-  .craft-badge-ring::before {
-    content: '✦ HANDCRAFTED ✦ SILK ✦ COTTON ✦';
-    position: absolute;
-    font-size: 5.5px;
-    letter-spacing: 1.5px;
-    color: rgba(201,168,76,0.5);
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .craft-badge-inner {
-    font-size: 22px;
-    position: relative;
-    z-index: 1;
-  }
-  @keyframes spin-slow { to { transform: rotate(360deg); } }
-  @media (max-width: 600px) { .craft-badge { display: none; } }
+/* ── PACKAGES — TRUE 3D FLIP ── */
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:60px}
+.pkg-scene{perspective:1000px;height:380px}
+.pkg-flip{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,.2,.2,1);cursor:pointer}
+.pkg-scene:hover .pkg-flip{transform:rotateY(180deg)}
+.pkg-front,.pkg-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:4px;padding:36px 32px;display:flex;flex-direction:column}
+.pkg-front{background:var(--white);border:1px solid var(--border)}
+.pkg-front.featured-front{background:var(--dark);border-color:var(--saffron);overflow:hidden}
+.pkg-front.featured-front::before{content:'RECOMMENDED';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--saffron),var(--gold));color:var(--white);font-size:9px;font-weight:700;letter-spacing:2px;padding:5px 16px;border-radius:0 0 4px 4px}
+/* silk sheen on featured */
+.pkg-front.featured-front::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.06),transparent);animation:silk-sheen 3s ease-in-out infinite}
+@keyframes silk-sheen{0%{left:-100%}60%,100%{left:150%}}
+.pkg-back{background:linear-gradient(135deg,var(--dark),#2D1F0A);border:1px solid rgba(232,98,26,.3);transform:rotateY(180deg);justify-content:center;align-items:center;text-align:center;gap:16px}
+.pkg-back-icon{font-size:48px;margin-bottom:8px}
+.pkg-back-msg{font-family:'Playfair Display',serif;font-size:20px;color:var(--white);line-height:1.4}
+.pkg-back-cta{margin-top:12px;background:linear-gradient(135deg,var(--saffron),var(--saffron-light));color:var(--white);padding:12px 28px;font-size:13px;font-weight:600;border-radius:2px;text-decoration:none;letter-spacing:.5px}
+.pkg-name{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--saffron);margin-bottom:8px}
+.pkg-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--dark);margin-bottom:20px;line-height:1.3}
+.featured-front .pkg-title{color:var(--white)}
+.pkg-features{list-style:none;flex:1}
+.pkg-feature{font-size:13px;color:var(--text-body);padding:9px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.featured-front .pkg-feature{color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.08)}
+.pkg-feature::before{content:'✓';color:var(--saffron);font-weight:700;font-size:11px;flex-shrink:0}
+.pkg-feature:last-child{border-bottom:none}
+.pkg-hint{font-size:10px;color:var(--text-light);letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-top:12px;opacity:.6}
+.featured-front .pkg-hint{color:rgba(255,255,255,.35)}
 
-  /* ── ORNAMENT DIVIDER ── */
-  .ornament-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 0 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .ornament-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    opacity: 0.4;
-  }
-  .ornament-symbol {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    color: var(--gold);
-    opacity: 0.5;
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
+/* ── PROCESS ── */
+.process-timeline{margin-top:60px;position:relative}
+.process-timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--saffron),var(--gold),transparent)}
+.process-step{display:flex;gap:36px;margin-bottom:40px;align-items:flex-start}
+.proc-circle{width:58px;height:58px;border-radius:50%;background:var(--white);border:2px solid var(--saffron);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--saffron);flex-shrink:0;z-index:1;transition:background .3s,color .3s,box-shadow .3s}
+.process-step:hover .proc-circle{background:var(--saffron);color:var(--white);box-shadow:0 0 20px rgba(232,98,26,.4)}
+.proc-content{background:var(--white);border:1px solid var(--border);padding:28px 32px;border-radius:4px;flex:1;transition:border-color .3s,box-shadow .3s,transform .2s}
+.process-step:hover .proc-content{border-color:rgba(232,98,26,.2);box-shadow:0 8px 30px rgba(0,0,0,.06);transform:translateX(4px)}
+.proc-week{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--saffron);margin-bottom:6px}
+.proc-step-title{font-size:17px;font-weight:600;color:var(--dark);margin-bottom:8px}
+.proc-step-desc{font-size:14px;color:var(--text-light);line-height:1.7}
 
-  /* ── SECTIONS ── */
-  .section {
-    padding: 100px 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .section-full { padding: 100px 40px; }
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
-    color: var(--dark);
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-  .section-title em {
-    font-style: italic;
-    color: var(--saffron);
-  }
-  .section-intro {
-    font-size: 17px;
-    color: var(--text-light);
-    max-width: 640px;
-    font-weight: 300;
-    line-height: 1.8;
-  }
-  .divider {
-    width: 48px; height: 3px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-    margin: 24px 0 48px;
-    border-radius: 2px;
-  }
+/* ── WHY ── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:60px}
+.why-card{background:var(--white);padding:36px 32px;border:1px solid var(--border);transition:background .3s,transform .08s,box-shadow .3s;will-change:transform;cursor:default}
+.why-card:hover{background:var(--saffron-pale);box-shadow:0 12px 40px rgba(232,98,26,.08)}
+.why-icon{font-size:28px;margin-bottom:16px;display:inline-block;transition:transform .4s}
+.why-card:hover .why-icon{transform:scale(1.2) rotate(-8deg)}
+.why-title{font-size:15px;font-weight:600;color:var(--dark);margin-bottom:8px}
+.why-desc{font-size:13px;color:var(--text-light);line-height:1.7}
 
-  /* ── PROBLEM SECTION ── */
-  .problem-bg {
-    background: var(--dark);
-    position: relative;
-    overflow: hidden;
-  }
-  .problem-bg::before {
-    content: '';
-    position: absolute;
-    top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(232,98,26,0.08) 0%, transparent 70%);
-  }
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2px;
-    margin-top: 60px;
-  }
-  .problem-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.07);
-    padding: 40px 36px;
-    position: relative;
-    transition: background 0.3s, border-color 0.3s, transform 0.05s ease, box-shadow 0.3s;
-    cursor: default;
-    will-change: transform;
-  }
-  .problem-card:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(232,98,26,0.3);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(232,98,26,0.08);
-  }
-  .problem-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 56px;
-    font-weight: 700;
-    color: rgba(232,98,26,0.15);
-    line-height: 1;
-    margin-bottom: 20px;
-  }
-  .problem-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 12px;
-    line-height: 1.4;
-  }
-  .problem-desc {
-    font-size: 14px;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.7;
-  }
+/* ── CTA ── */
+.cta-section{background:var(--dark);position:relative;overflow:hidden;text-align:center;padding:120px 40px}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(232,98,26,.12) 0,transparent 70%);animation:ctaPulse 4s ease-in-out infinite}
+@keyframes ctaPulse{0%,100%{opacity:.7}50%{opacity:1}}
+.cta-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:20px}
+.cta-title em{font-style:italic;background:linear-gradient(90deg,var(--saffron-light),var(--gold-light),var(--saffron-light));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite}
+.cta-sub{font-size:16px;color:rgba(255,255,255,.5);margin-bottom:48px;font-weight:300}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--saffron),var(--saffron-light));color:var(--white);padding:16px 40px;font-size:14px;font-weight:600;letter-spacing:1px;border:none;cursor:pointer;border-radius:2px;text-decoration:none;display:inline-block;transition:opacity .3s,transform .2s,box-shadow .3s;position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.2),transparent);animation:btnShimmer 2.5s ease-in-out infinite}
+@keyframes btnShimmer{0%{left:-100%}60%,100%{left:150%}}
+.btn-primary:hover{opacity:.95;transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,98,26,.4)}
+.btn-secondary{background:transparent;color:rgba(255,255,255,.7);padding:16px 40px;font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.2);cursor:pointer;border-radius:2px;text-decoration:none;display:inline-block;transition:border-color .3s,color .3s,transform .2s}
+.btn-secondary:hover{border-color:var(--saffron);color:var(--white);transform:translateY(-3px)}
+.cta-contact{margin-top:48px;padding-top:48px;border-top:1px solid rgba(255,255,255,.08);display:flex;gap:48px;justify-content:center;flex-wrap:wrap}
+.contact-item{text-align:center}
+.c-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.c-val{font-size:15px;color:rgba(255,255,255,.8);font-weight:500}
+.gold-particle{position:absolute;border-radius:50%;pointer-events:none;animation:goldRise ease-out forwards}
+@keyframes goldRise{0%{transform:translateY(0) scale(1);opacity:.7}100%{transform:translateY(-180px) scale(.1);opacity:0}}
+.ripple-fx{position:absolute;border-radius:50%;background:rgba(255,255,255,.25);transform:scale(0);animation:rippleExp .6s ease-out forwards;pointer-events:none}
+@keyframes rippleExp{to{transform:scale(4);opacity:0}}
 
-  /* ── STRATEGY ── */
-  .strategy-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    margin-top: 60px;
-  }
-  .strategy-visual {
-    background: var(--dark);
-    border-radius: 4px;
-    padding: 48px 40px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.05s ease, box-shadow 0.3s;
-    will-change: transform;
-  }
-  .strategy-visual::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-  }
-  .strategy-point {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 32px;
-    align-items: flex-start;
-  }
-  .strategy-point:last-child { margin-bottom: 0; }
-  .strategy-icon {
-    width: 36px; height: 36px;
-    background: rgba(232,98,26,0.15);
-    border: 1px solid rgba(232,98,26,0.3);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 16px;
-    transition: transform 0.3s, background 0.3s;
-  }
-  .strategy-point:hover .strategy-icon {
-    transform: scale(1.15) rotate(-5deg);
-    background: rgba(232,98,26,0.25);
-  }
-  .strategy-point-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-  .strategy-point-desc {
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.6;
-  }
+/* ── FOOTER ── */
+.footer{background:#0A0704;padding:40px;text-align:center;border-top:1px solid rgba(255,255,255,.05)}
+.footer-brand{font-size:18px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px}
+.footer-brand span{color:var(--saffron)}
+.footer-note{font-size:12px;color:rgba(255,255,255,.2);letter-spacing:1px}
 
-  /* ── SERVICES ── */
-  .services-container { margin-top: 60px; }
-  .service-block {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 32px;
-    align-items: start;
-    padding: 48px 0;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    transition: padding-left 0.3s;
-  }
-  .service-block:last-child { border-bottom: none; }
-  .service-block::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 0;
-    background: linear-gradient(180deg, var(--saffron), var(--gold));
-    opacity: 0.15;
-    transition: width 0.4s ease;
-    border-radius: 2px;
-  }
-  .service-block:hover::before { width: 3px; }
-  .service-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--border);
-    line-height: 1;
-    padding-top: 4px;
-    transition: color 0.3s;
-  }
-  .service-block:hover .service-num { color: rgba(232,98,26,0.25); }
-  .service-badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--saffron);
-    background: var(--saffron-pale);
-    padding: 4px 12px;
-    border-radius: 2px;
-    margin-bottom: 12px;
-  }
-  .service-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 12px;
-    line-height: 1.3;
-  }
-  .service-desc {
-    font-size: 15px;
-    color: var(--text-light);
-    max-width: 560px;
-    line-height: 1.8;
-    margin-bottom: 24px;
-  }
-  .service-deliverables {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .deliverable-tag {
-    font-size: 12px;
-    color: var(--charcoal);
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 5px 12px;
-    border-radius: 20px;
-    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
-  }
-  .deliverable-tag:hover {
-    background: var(--saffron-pale);
-    border-color: var(--saffron);
-    color: var(--saffron);
-    transform: translateY(-2px);
-  }
+/* ── HIGHLIGHT BOX ── */
+.highlight-box{background:linear-gradient(135deg,var(--saffron-pale),#FFF8F0);border:1px solid rgba(232,98,26,.2);border-left:4px solid var(--saffron);padding:24px 28px;border-radius:0 4px 4px 0;margin:32px 0}
+.highlight-box p{font-size:15px;color:var(--charcoal);line-height:1.7}
+.highlight-box strong{color:var(--saffron)}
 
-  /* ── GMB GUIDE ── */
-  .gmb-bg {
-    background: linear-gradient(135deg, #0F0A04 0%, #1A1208 50%, #0F0A04 100%);
-    position: relative;
-    overflow: hidden;
-  }
-  .gmb-bg::after {
-    content: '';
-    position: absolute;
-    bottom: -100px; left: -100px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-  }
-  .gmb-phases {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    margin-top: 60px;
-    position: relative;
-    z-index: 1;
-  }
-  .gmb-phase {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    padding: 36px 32px;
-    border-radius: 4px;
-    transition: border-color 0.3s, transform 0.05s ease, box-shadow 0.3s;
-    will-change: transform;
-    cursor: default;
-  }
-  .gmb-phase:hover {
-    border-color: rgba(232,98,26,0.3);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-  }
-  .phase-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-  .phase-num-circle {
-    width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--saffron), var(--gold));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-    flex-shrink: 0;
-  }
-  .phase-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.3;
-  }
-  .phase-subtitle {
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  .phase-items { list-style: none; }
-  .phase-item {
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    line-height: 1.5;
-  }
-  .phase-item:last-child { border-bottom: none; }
-  .phase-item::before {
-    content: '→';
-    color: var(--saffron);
-    font-size: 11px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px;margin:48px 0;background:var(--border)}
+.stat-box{background:var(--white);padding:32px 28px;text-align:center;transition:background .3s,transform .2s}
+.stat-box:hover{background:var(--saffron-pale);transform:translateY(-4px)}
+.stat-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--saffron);line-height:1;margin-bottom:8px;display:block}
+.stat-label{font-size:12px;color:var(--text-light);line-height:1.4}
 
-  /* ── PACKAGES ── */
-  .packages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    margin-top: 60px;
-  }
-  .package-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 40px 36px;
-    border-radius: 4px;
-    position: relative;
-    transition: transform 0.05s ease, box-shadow 0.3s;
-    will-change: transform;
-    cursor: default;
-  }
-  .package-card.featured {
-    background: var(--dark);
-    border-color: var(--saffron);
-    overflow: hidden;
-  }
-  /* Silk sheen on featured card */
-  .package-card.featured::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.06), transparent);
-    animation: silk-sheen 3s ease-in-out infinite;
-  }
-  @keyframes silk-sheen {
-    0% { left: -100%; }
-    60%, 100% { left: 150%; }
-  }
-  .package-card.featured::before {
-    content: 'RECOMMENDED';
-    position: absolute;
-    top: -1px; left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-    color: var(--white);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 5px 16px;
-    border-radius: 0 0 4px 4px;
-    animation: badge-float 3s ease-in-out infinite;
-    z-index: 1;
-  }
-  @keyframes badge-float {
-    0%, 100% { box-shadow: 0 4px 12px rgba(232,98,26,0.3); }
-    50% { box-shadow: 0 8px 20px rgba(232,98,26,0.5); }
-  }
-  .package-card:not(.featured):hover {
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-  }
-  .package-card.featured:hover {
-    box-shadow: 0 20px 60px rgba(232,98,26,0.15);
-  }
-  .pkg-name {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 12px;
-  }
-  .pkg-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 20px;
-    line-height: 1.3;
-  }
-  .package-card.featured .pkg-title { color: var(--white); }
-  .pkg-features { list-style: none; margin-bottom: 36px; }
-  .pkg-feature {
-    font-size: 14px;
-    color: var(--text-body);
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .package-card.featured .pkg-feature {
-    color: rgba(255,255,255,0.7);
-    border-color: rgba(255,255,255,0.08);
-  }
-  .pkg-feature::before {
-    content: '✓';
-    color: var(--saffron);
-    font-weight: 700;
-    font-size: 12px;
-    flex-shrink: 0;
-  }
-  .pkg-feature:last-child { border-bottom: none; }
-  .pkg-cta {
-    background: rgba(232,98,26,0.1);
-    border: 1px solid rgba(232,98,26,0.25);
-    border-radius: 2px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: var(--saffron);
-    font-weight: 600;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-  .package-card.featured .pkg-cta {
-    background: rgba(201,168,76,0.1);
-    border-color: rgba(201,168,76,0.25);
-    color: var(--gold);
-  }
+/* ── T&C ── */
+.tc-list{list-style:none}
+.tc-item{font-size:14px;color:var(--text-light);padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px}
+.tc-item::before{content:'◆';color:var(--gold);font-size:8px;flex-shrink:0;margin-top:5px}
 
-  /* ── PROCESS ── */
-  .process-timeline {
-    margin-top: 60px;
-    position: relative;
-  }
-  .process-timeline::before {
-    content: '';
-    position: absolute;
-    left: 28px; top: 0; bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--saffron), var(--gold), transparent);
-  }
-  .process-step {
-    display: flex;
-    gap: 36px;
-    margin-bottom: 40px;
-    align-items: flex-start;
-    position: relative;
-  }
-  .process-circle {
-    width: 58px; height: 58px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 2px solid var(--saffron);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--saffron);
-    flex-shrink: 0;
-    z-index: 1;
-    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-  }
-  .process-step:hover .process-circle {
-    background: var(--saffron);
-    color: var(--white);
-    box-shadow: 0 0 20px rgba(232,98,26,0.4);
-  }
-  .process-content {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 28px 32px;
-    border-radius: 4px;
-    flex: 1;
-    transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
-  }
-  .process-step:hover .process-content {
-    border-color: rgba(232,98,26,0.2);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-    transform: translateX(4px);
-  }
-  .process-week {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 6px;
-  }
-  .process-step-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 8px;
-  }
-  .process-step-desc {
-    font-size: 14px;
-    color: var(--text-light);
-    line-height: 1.7;
-  }
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-  /* ── WHY US ── */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2px;
-    margin-top: 60px;
-  }
-  .why-card {
-    background: var(--white);
-    padding: 36px 32px;
-    border: 1px solid var(--border);
-    transition: background 0.3s, transform 0.05s ease, box-shadow 0.3s;
-    will-change: transform;
-    cursor: default;
-  }
-  .why-card:hover {
-    background: var(--saffron-pale);
-    box-shadow: 0 12px 40px rgba(232,98,26,0.08);
-  }
-  .why-icon {
-    font-size: 28px;
-    margin-bottom: 16px;
-    display: inline-block;
-    transition: transform 0.4s ease;
-  }
-  .why-card:hover .why-icon {
-    transform: scale(1.2) rotate(-8deg);
-  }
-  .why-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 8px;
-  }
-  .why-desc {
-    font-size: 13px;
-    color: var(--text-light);
-    line-height: 1.7;
-  }
-
-  /* ── CTA ── */
-  .cta-section {
-    background: var(--dark);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    padding: 120px 40px;
-  }
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(232,98,26,0.12) 0%, transparent 70%);
-    animation: cta-pulse 4s ease-in-out infinite;
-  }
-  @keyframes cta-pulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
-  }
-  .cta-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
-  .cta-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-  .cta-title em {
-    font-style: italic;
-    background: linear-gradient(90deg, var(--saffron-light), var(--gold-light), var(--saffron-light));
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer-sweep 3s ease-in-out infinite;
-  }
-  .cta-sub {
-    font-size: 16px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 48px;
-    font-weight: 300;
-  }
-  .cta-buttons {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--saffron), var(--saffron-light));
-    color: var(--white);
-    padding: 16px 40px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    border: none;
-    cursor: pointer;
-    border-radius: 2px;
-    text-decoration: none;
-    display: inline-block;
-    transition: opacity 0.3s, transform 0.2s, box-shadow 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: btn-shimmer 2.5s ease-in-out infinite;
-  }
-  @keyframes btn-shimmer {
-    0% { left: -100%; }
-    60%, 100% { left: 150%; }
-  }
-  .btn-primary:hover {
-    opacity: 0.95;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(232,98,26,0.4);
-  }
-  .btn-secondary {
-    background: transparent;
-    color: rgba(255,255,255,0.7);
-    padding: 16px 40px;
-    font-size: 14px;
-    font-weight: 500;
-    border: 1px solid rgba(255,255,255,0.2);
-    cursor: pointer;
-    border-radius: 2px;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.3s, color 0.3s, transform 0.2s;
-  }
-  .btn-secondary:hover {
-    border-color: var(--saffron);
-    color: var(--white);
-    transform: translateY(-3px);
-  }
-  .cta-contact {
-    margin-top: 48px;
-    padding-top: 48px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    display: flex;
-    gap: 48px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .contact-item { text-align: center; }
-  .contact-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-bottom: 6px;
-  }
-  .contact-value {
-    font-size: 15px;
-    color: rgba(255,255,255,0.8);
-    font-weight: 500;
-  }
-
-  /* Gold particles */
-  .gold-particle {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: gold-rise ease-out forwards;
-  }
-  @keyframes gold-rise {
-    0% { transform: translateY(0) scale(1); opacity: 0.7; }
-    100% { transform: translateY(-180px) scale(0.2); opacity: 0; }
-  }
-
-  /* Ripple */
-  .ripple-effect {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.25);
-    transform: scale(0);
-    animation: ripple-expand 0.6s ease-out forwards;
-    pointer-events: none;
-  }
-  @keyframes ripple-expand { to { transform: scale(4); opacity: 0; } }
-
-  /* ── FOOTER ── */
-  .footer {
-    background: #0A0704;
-    padding: 40px;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-  .footer-brand {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 8px;
-  }
-  .footer-brand span { color: var(--saffron); }
-  .footer-note {
-    font-size: 12px;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 1px;
-  }
-
-  /* ── HIGHLIGHT BOX ── */
-  .highlight-box {
-    background: linear-gradient(135deg, var(--saffron-pale), #FFF8F0);
-    border: 1px solid rgba(232,98,26,0.2);
-    border-left: 4px solid var(--saffron);
-    padding: 24px 28px;
-    border-radius: 0 4px 4px 0;
-    margin: 32px 0;
-  }
-  .highlight-box p { font-size: 15px; color: var(--charcoal); line-height: 1.7; }
-  .highlight-box strong { color: var(--saffron); }
-
-  /* ── STATS ── */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 2px;
-    margin: 48px 0;
-    background: var(--border);
-  }
-  .stat-box {
-    background: var(--white);
-    padding: 32px 28px;
-    text-align: center;
-    transition: background 0.3s, transform 0.2s;
-  }
-  .stat-box:hover {
-    background: var(--saffron-pale);
-    transform: translateY(-4px);
-  }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--saffron);
-    line-height: 1;
-    margin-bottom: 8px;
-    display: block;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-light);
-    line-height: 1.4;
-  }
-
-  /* ── T&C ── */
-  .tc-list { list-style: none; }
-  .tc-item {
-    font-size: 14px;
-    color: var(--text-light);
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 12px;
-  }
-  .tc-item::before {
-    content: '◆';
-    color: var(--gold);
-    font-size: 8px;
-    flex-shrink: 0;
-    margin-top: 5px;
-  }
-
-  /* ── STICKY NAV ── */
-  .sticky-nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(10,7,4,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    padding: 14px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transform: translateY(-100%);
-    transition: transform 0.4s ease;
-  }
-  .sticky-nav.visible { transform: translateY(0); }
-  .nav-brand {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--white);
-  }
-  .nav-brand span { color: var(--saffron); }
-  .nav-for {
-    font-size: 12px;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 1px;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-8px); }
-  }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .section { padding: 70px 24px; }
-    .section-full { padding: 70px 24px; }
-    .strategy-grid { grid-template-columns: 1fr; }
-    .service-block { grid-template-columns: 1fr; gap: 16px; }
-    .process-timeline::before { display: none; }
-    .cover { padding: 60px 24px; }
-    .cta-section { padding: 80px 24px; }
-  }
+@media(max-width:768px){
+  .section{padding:70px 24px}.section-full{padding:70px 24px}
+  .strategy-grid{grid-template-columns:1fr}
+  .service-block{grid-template-columns:1fr;gap:16px}
+  .process-timeline::before{display:none}
+  .cover{padding:60px 24px}.cta-section{padding:80px 24px}
+  .pkg-scene{height:auto}.pkg-flip{transform:none!important}
+  .pkg-back{display:none}.pkg-front{position:static;height:auto}
+}
 </style>
 </head>
 <body>
 
-<!-- ── SILK THREAD JOURNEY ── -->
-<div class="thread-progress-bar" id="threadProgressBar"></div>
-<div class="thread-journey" id="threadJourney">
-  <div class="thread-top-spool"></div>
-  <div class="thread-track" id="threadTrack">
-    <div class="thread-fill" id="threadFill"></div>
-    <div class="thread-shuttle" id="threadShuttle"></div>
-    <div class="thread-waypoints" id="threadWaypoints">
-      <!-- injected by JS -->
-    </div>
+<div id="threadBar"></div>
+
+<!-- Silk Thread Sidebar -->
+<div id="threadSidebar">
+  <div class="t-spool"></div>
+  <div class="t-track" id="tTrack">
+    <div class="t-fill" id="tFill"></div>
+    <div class="t-shuttle" id="tShuttle"></div>
+    <div id="tWps"></div>
   </div>
-  <div class="thread-bottom-spool"></div>
+  <div class="t-spool"></div>
 </div>
 
-<!-- ── STICKY NAV ── -->
-<nav class="sticky-nav" id="stickyNav">
-  <div class="nav-brand"><span>Ads</span>4<span style="color:var(--gold)">You</span> — AI Automation Studio</div>
+<!-- Sticky Nav -->
+<nav id="stickyNav">
+  <div class="nav-brand"><span>Ads</span>4<span class="g">You</span> — AI Automation Studio</div>
   <div class="nav-for">Proposal for Vishita : The Elegant Choice</div>
 </nav>
 
 <!-- ── COVER ── -->
-<section class="cover" id="sec-cover">
-  <div class="cover-pattern" id="coverPattern"></div>
-  <div class="ring ring-1"></div>
-  <div class="ring ring-2"></div>
-  <div class="ring ring-3"></div>
-
-  <div class="craft-badge">
-    <div class="craft-badge-ring">
-      <div class="craft-badge-inner">🧵</div>
-    </div>
-  </div>
-
-  <div class="cover-content" id="coverContent">
+<section class="cover" id="s0">
+  <canvas id="silkCanvas"></canvas>
+  <div class="cover-inner">
     <div class="cover-tag">Digital Growth Proposal</div>
     <div class="cover-brand">
-      <div class="brand-logo"><span class="accent">Ads</span><span class="gold">4</span>You</div>
+      <div class="brand-logo"><span class="a">Ads</span><span class="g">4</span>You</div>
       <div class="brand-tagline">AI Automation Studio · Pune, Maharashtra</div>
     </div>
     <h1>Bringing <em>Vishita : The Elegant Choice</em><br>Into the Digital Age</h1>
-    <div class="cover-divider"></div>
-    <p class="cover-subtitle">A complete digital strategy to grow your visibility, attract the right customers, and establish your handloom business as Latur's most trusted name in authentic Indian craftsmanship.</p>
+    <div class="cover-div"></div>
+    <p class="cover-sub">A complete digital strategy to grow your visibility, attract the right customers, and establish your handloom business as Latur's most trusted name in authentic Indian craftsmanship.</p>
     <div class="cover-meta">
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Prepared for</div>
-        <div class="cover-meta-value">Vishita : The Elegant Choice</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Location</div>
-        <div class="cover-meta-value">Latur, Maharashtra</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Prepared by</div>
-        <div class="cover-meta-value">Ads4You — AI Automation Studio</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Date</div>
-        <div class="cover-meta-value">May 2026</div>
-      </div>
+      <div class="cover-meta-item"><div class="cm-label">Prepared for</div><div class="cm-val">Vishita : The Elegant Choice</div></div>
+      <div class="cover-meta-item"><div class="cm-label">Location</div><div class="cm-val">Latur, Maharashtra</div></div>
+      <div class="cover-meta-item"><div class="cm-label">Prepared by</div><div class="cm-val">Ads4You — AI Automation Studio</div></div>
+      <div class="cover-meta-item"><div class="cm-label">Date</div><div class="cm-val">May 2026</div></div>
     </div>
   </div>
   <div class="cover-scroll">↓ &nbsp; Scroll to explore</div>
 </section>
 
 <!-- ── PROBLEMS ── -->
-<section class="section-full problem-bg" id="sec-problems">
-  <div class="section" style="padding-top:0;padding-bottom:0;">
+<section class="section-full problem-bg" id="s1">
+  <div class="section" style="padding-top:0;padding-bottom:0">
     <div class="reveal">
-      <div class="section-label" style="color:var(--saffron);">The Real Challenge</div>
-      <h2 class="section-title" style="color:var(--white);">We Understand What's<br><em>Holding You Back</em></h2>
-      <p class="section-intro" style="color:rgba(255,255,255,0.45);">Before proposing solutions, we studied your market, your competitors in Latur, and the nationwide challenges faced by handloom businesses. Here is exactly what we found.</p>
+      <div class="sl" style="color:var(--saffron)">The Real Challenge</div>
+      <h2 class="st" style="color:var(--white)">We Understand What's<br><em>Holding You Back</em></h2>
+      <p class="si" style="color:rgba(255,255,255,.45)">Before proposing solutions, we studied your market, your competitors in Latur, and the nationwide challenges faced by handloom businesses.</p>
     </div>
     <div class="problem-grid reveal">
-      <div class="problem-card tilt-card">
-        <div class="problem-num">01</div>
-        <div class="problem-title">Zero Digital Visibility in Latur</div>
-        <div class="problem-desc">When someone in Latur searches "handloom saree near me" or "cotton garments Latur", your business does not appear. Competitors with inferior products rank above you simply because they have a digital presence.</div>
-      </div>
-      <div class="problem-card tilt-card">
-        <div class="problem-num">02</div>
-        <div class="problem-title">Machine-Made Comparison Problem</div>
-        <div class="problem-desc">Customers compare your handwoven saree to a machine-made one because they don't understand the difference. This is a knowledge gap — not a price problem. It costs you premium customers.</div>
-      </div>
-      <div class="problem-card tilt-card">
-        <div class="problem-num">03</div>
-        <div class="problem-title">Wrong Customers Are Reaching You</div>
-        <div class="problem-desc">Price-sensitive customers arrive because your marketing (or lack of it) attracts no particular audience. Premium, quality-conscious buyers — who exist in Latur — simply don't know you exist.</div>
-      </div>
-      <div class="problem-card tilt-card">
-        <div class="problem-num">04</div>
-        <div class="problem-title">No Story, No Trust, No Premium</div>
-        <div class="problem-desc">Your products carry decades of craft, natural dyes, and human skill. But without storytelling, customers see fabric — not heritage. Story converts browsers into buyers and justifies your price.</div>
-      </div>
+      <div class="problem-card tilt"><div class="p-num">01</div><div class="p-title">Zero Digital Visibility in Latur</div><div class="p-desc">When someone in Latur searches "handloom saree near me" or "cotton garments Latur", your business does not appear. Competitors with inferior products rank above you simply because they have a digital presence.</div></div>
+      <div class="problem-card tilt"><div class="p-num">02</div><div class="p-title">Machine-Made Comparison Problem</div><div class="p-desc">Customers compare your handwoven saree to a machine-made one because they don't understand the difference. This is a knowledge gap — not a price problem. It costs you premium customers.</div></div>
+      <div class="problem-card tilt"><div class="p-num">03</div><div class="p-title">Wrong Customers Are Reaching You</div><div class="p-desc">Price-sensitive customers arrive because your marketing (or lack of it) attracts no particular audience. Premium, quality-conscious buyers — who exist in Latur — simply don't know you exist.</div></div>
+      <div class="problem-card tilt"><div class="p-num">04</div><div class="p-title">No Story, No Trust, No Premium</div><div class="p-desc">Your products carry decades of craft, natural dyes, and human skill. But without storytelling, customers see fabric — not heritage. Story converts browsers into buyers.</div></div>
     </div>
   </div>
 </section>
 
-<div class="ornament-divider" style="padding-top:40px;padding-bottom:40px;">
-  <div class="ornament-line"></div>
-  <div class="ornament-symbol">◆ &nbsp; ◆ &nbsp; ◆</div>
-  <div class="ornament-line"></div>
-</div>
+<div class="ornament"><div class="orn-line"></div><div class="orn-sym">◆ &nbsp; ◆ &nbsp; ◆</div><div class="orn-line"></div></div>
 
 <!-- ── STRATEGY ── -->
-<section class="section" id="sec-strategy">
+<section class="section" id="s2">
   <div class="reveal">
-    <div class="section-label">Our Approach</div>
-    <h2 class="section-title">A Three-Pillar <em>Digital Strategy</em><br>Built for Latur</h2>
+    <div class="sl">Our Approach</div>
+    <h2 class="st">A Three-Pillar <em>Digital Strategy</em><br>Built for Latur</h2>
     <div class="divider"></div>
-    <p class="section-intro">We are not proposing generic digital marketing. This strategy is built specifically for a premium handloom business in a tier-3 city, where local visibility and trust-building are the primary levers of growth.</p>
+    <p class="si">Built specifically for a premium handloom business in a tier-3 city, where local visibility and trust-building are the primary levers of growth.</p>
   </div>
-
   <div class="stats-row reveal">
-    <div class="stat-box">
-      <span class="stat-num" data-target="60" data-suffix="%">60%</span>
-      <div class="stat-label">of India's e-commerce demand comes from tier-2 &amp; tier-3 cities</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num" data-target="46" data-suffix="%">46%</span>
-      <div class="stat-label">of all Google searches have local intent — "near me" queries</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num" data-target="287" data-suffix="%">287%</span>
-      <div class="stat-label">more clicks for fully optimized Google Business Profiles vs. basic ones</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num" data-target="35" data-suffix="%">35%</span>
-      <div class="stat-label">more profile clicks for listings with professional product photos</div>
-    </div>
+    <div class="stat-box"><span class="stat-num" data-t="60" data-s="%">60%</span><div class="stat-label">of India's e-commerce demand comes from tier-2 &amp; tier-3 cities</div></div>
+    <div class="stat-box"><span class="stat-num" data-t="46" data-s="%">46%</span><div class="stat-label">of all Google searches have local intent — "near me" queries</div></div>
+    <div class="stat-box"><span class="stat-num" data-t="287" data-s="%">287%</span><div class="stat-label">more clicks for fully optimized Google Business Profiles</div></div>
+    <div class="stat-box"><span class="stat-num" data-t="35" data-s="%">35%</span><div class="stat-label">more profile clicks for listings with professional product photos</div></div>
   </div>
-
   <div class="strategy-grid reveal">
-    <div class="strategy-text">
-      <h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--dark);margin-bottom:16px;">How We Will Grow<br>Vishita : The Elegant Choice</h3>
-      <p style="font-size:15px;color:var(--text-light);line-height:1.8;margin-bottom:20px;">The goal is simple: make sure that every person in Latur who is looking for quality handloom fabric, sarees, or cotton garments finds you first — and when they do, they understand exactly why your products are worth every rupee.</p>
-      <div class="highlight-box">
-        <p><strong>Our core belief:</strong> Your products are not expensive. Your customers are simply not educated about what they're buying. Our strategy turns this knowledge gap into your biggest competitive advantage.</p>
-      </div>
+    <div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--dark);margin-bottom:16px">How We Will Grow<br>Vishita : The Elegant Choice</h3>
+      <p style="font-size:15px;color:var(--text-light);line-height:1.8;margin-bottom:20px">Make sure every person in Latur looking for quality handloom fabric, sarees, or cotton garments finds you first — and understands exactly why your products are worth every rupee.</p>
+      <div class="highlight-box"><p><strong>Our core belief:</strong> Your products are not expensive. Your customers are simply not educated about what they're buying. Our strategy turns this knowledge gap into your biggest competitive advantage.</p></div>
     </div>
-    <div class="strategy-visual tilt-card">
-      <div class="strategy-point">
-        <div class="strategy-icon">📍</div>
-        <div>
-          <div class="strategy-point-title">Pillar 1 — Local Discoverability</div>
-          <div class="strategy-point-desc">Google Business Profile optimization so Latur customers find you instantly when searching online or on Google Maps.</div>
-        </div>
-      </div>
-      <div class="strategy-point">
-        <div class="strategy-icon">🛍️</div>
-        <div>
-          <div class="strategy-point-title">Pillar 2 — Online Storefront</div>
-          <div class="strategy-point-desc">A Shopify store that displays your products beautifully and connects interested buyers directly to you on WhatsApp for easy inquiry and conversion.</div>
-        </div>
-      </div>
-      <div class="strategy-point">
-        <div class="strategy-icon">🌐</div>
-        <div>
-          <div class="strategy-point-title">Pillar 3 — Digital Credibility</div>
-          <div class="strategy-point-desc">A professional website that tells your story, educates customers about handloom, and builds the trust needed to justify premium pricing.</div>
-        </div>
-      </div>
+    <div class="strategy-visual tilt">
+      <div class="s-point"><div class="s-icon">📍</div><div><div class="s-title">Pillar 1 — Local Discoverability</div><div class="s-desc">Google Business Profile optimization so Latur customers find you instantly on Maps and Search.</div></div></div>
+      <div class="s-point"><div class="s-icon">🛍️</div><div><div class="s-title">Pillar 2 — Online Storefront</div><div class="s-desc">A Shopify store connecting buyers directly to you on WhatsApp for easy inquiry and conversion.</div></div></div>
+      <div class="s-point"><div class="s-icon">🌐</div><div><div class="s-title">Pillar 3 — Digital Credibility</div><div class="s-desc">A professional website that tells your story, educates customers, and builds trust for premium pricing.</div></div></div>
     </div>
   </div>
 </section>
 
 <!-- ── SERVICES ── -->
-<section class="section-full" style="background:var(--saffron-pale);" id="sec-services">
-  <div class="section" style="padding-top:0;padding-bottom:0;">
-    <div class="reveal">
-      <div class="section-label">What We Will Do</div>
-      <h2 class="section-title">Three Services.<br><em>One Complete Transformation.</em></h2>
-      <div class="divider"></div>
-    </div>
+<section class="section-full" style="background:var(--saffron-pale)" id="s3">
+  <div class="section" style="padding-top:0;padding-bottom:0">
+    <div class="reveal"><div class="sl">What We Will Do</div><h2 class="st">Three Services.<br><em>One Complete Transformation.</em></h2><div class="divider"></div></div>
     <div class="services-container">
       <div class="service-block reveal">
-        <div class="service-num">01</div>
-        <div class="service-content">
-          <span class="service-badge">Priority #1 — Urgent</span>
-          <h3 class="service-title">Google Business Profile<br>Setup &amp; Optimization</h3>
-          <p class="service-desc">This is the single most important step for a Latur-based business. When someone searches "handloom saree Latur" or "cotton garments near me", a fully optimized GMB profile places you in Google's local pack — the top 3 results that appear on Maps. Without this, you are invisible to local digital searchers, no matter how good your products are.</p>
-          <p class="service-desc" style="margin-top:12px;">We will handle complete setup, verification, keyword optimization, product listings on Google, photo upload, Q&amp;A seeding with Latur-specific keywords, weekly posts, and a review collection strategy — everything needed to rank above your competitors in Latur.</p>
-          <div class="service-deliverables">
-            <span class="deliverable-tag">GMB Claim &amp; Verification</span>
-            <span class="deliverable-tag">Category Optimization</span>
-            <span class="deliverable-tag">Business Description (SEO)</span>
-            <span class="deliverable-tag">10+ Product Listings</span>
-            <span class="deliverable-tag">15+ Photos Uploaded</span>
-            <span class="deliverable-tag">Q&amp;A Seeding</span>
-            <span class="deliverable-tag">4 Google Posts</span>
-            <span class="deliverable-tag">Review Strategy Guide</span>
-            <span class="deliverable-tag">Service Area Setup</span>
-          </div>
+        <div class="s-num">01</div>
+        <div>
+          <span class="s-badge">Priority #1 — Urgent</span>
+          <h3 class="s-title2">Google Business Profile<br>Setup &amp; Optimization</h3>
+          <p class="s-desc2">This is the single most important step for a Latur-based business. A fully optimized GMB profile places you in Google's local pack — the top 3 results on Maps. Without this, you are invisible to local digital searchers, no matter how good your products are.</p>
+          <p class="s-desc2" style="margin-top:12px">We handle complete setup, verification, keyword optimization, product listings, photo upload, Q&amp;A seeding with Latur-specific keywords, weekly posts, and a review collection strategy.</p>
+          <div class="s-deliverables"><span class="dtag">GMB Claim &amp; Verification</span><span class="dtag">Category Optimization</span><span class="dtag">Business Description (SEO)</span><span class="dtag">10+ Product Listings</span><span class="dtag">15+ Photos Uploaded</span><span class="dtag">Q&amp;A Seeding</span><span class="dtag">4 Google Posts</span><span class="dtag">Review Strategy Guide</span><span class="dtag">Service Area Setup</span></div>
         </div>
       </div>
       <div class="service-block reveal">
-        <div class="service-num">02</div>
-        <div class="service-content">
-          <span class="service-badge">Online Product Showcase</span>
-          <h3 class="service-title">Shopify Product Store<br>with WhatsApp Integration</h3>
-          <p class="service-desc">A clean, mobile-optimized Shopify store where you can showcase your full collection — sarees, cotton garments, fabric by metre, handicraft pieces. Each product gets its own page with photos, description, fabric details, and care instructions. Customers who are interested click a button and directly message you on WhatsApp to place an order — no complicated payment setup required initially.</p>
-          <p class="service-desc" style="margin-top:12px;">This also acts as a digital catalogue you can share anywhere — on Instagram, in groups, or via link. Far more professional than sending individual photos.</p>
-          <div class="service-deliverables">
-            <span class="deliverable-tag">Shopify Store Setup</span>
-            <span class="deliverable-tag">Theme Customization</span>
-            <span class="deliverable-tag">Up to 20 Product Listings</span>
-            <span class="deliverable-tag">WhatsApp "Order Now" Button</span>
-            <span class="deliverable-tag">Mobile Optimized</span>
-            <span class="deliverable-tag">Product Descriptions</span>
-            <span class="deliverable-tag">Collections / Categories</span>
-            <span class="deliverable-tag">Admin Panel Training</span>
-          </div>
-          <div class="highlight-box" style="margin-top:24px;margin-bottom:0;">
-            <p><strong>Note:</strong> Shopify subscription is paid directly by you to Shopify. Domain name is also purchased separately. If you choose to add a domain through us, a small additional charge applies.</p>
-          </div>
+        <div class="s-num">02</div>
+        <div>
+          <span class="s-badge">Online Product Showcase</span>
+          <h3 class="s-title2">Shopify Product Store<br>with WhatsApp Integration</h3>
+          <p class="s-desc2">A clean, mobile-optimized Shopify store showcasing your full collection — sarees, cotton garments, silk saris, fabric by metre, handicraft pieces. Each product gets its own page with photos, description, fabric details, and care instructions.</p>
+          <p class="s-desc2" style="margin-top:12px">Customers click a button and directly message you on WhatsApp. This also acts as a digital catalogue to share on Instagram, in groups, or via link.</p>
+          <div class="s-deliverables"><span class="dtag">Shopify Store Setup</span><span class="dtag">Theme Customization</span><span class="dtag">Up to 20 Product Listings</span><span class="dtag">WhatsApp "Order Now" Button</span><span class="dtag">Mobile Optimized</span><span class="dtag">Product Descriptions</span><span class="dtag">Collections / Categories</span><span class="dtag">Admin Panel Training</span></div>
+          <div class="highlight-box" style="margin-top:24px;margin-bottom:0"><p><strong>Note:</strong> Shopify subscription is paid directly by you to Shopify. Domain name is purchased separately.</p></div>
         </div>
       </div>
       <div class="service-block reveal">
-        <div class="service-num">03</div>
-        <div class="service-content">
-          <span class="service-badge">Brand Authority</span>
-          <h3 class="service-title">Professional Business Website<br>with Handloom Storytelling</h3>
-          <p class="service-desc">A 5-page custom website designed to educate, inspire trust, and convert visitors into customers. Unlike the Shopify store (which shows products), the website tells your story — who you are, where your fabric comes from, why handmade costs more, and why it's worth it. This is what bridges the knowledge gap in your customers' minds.</p>
-          <p class="service-desc" style="margin-top:12px;">The website also improves your Google ranking because Google trusts businesses with a proper website more than those without one. It acts as the anchor for all your other digital presence.</p>
-          <div class="service-deliverables">
-            <span class="deliverable-tag">5-Page Website</span>
-            <span class="deliverable-tag">Home Page</span>
-            <span class="deliverable-tag">About &amp; Our Story</span>
-            <span class="deliverable-tag">Products / Collections</span>
-            <span class="deliverable-tag">Why Handloom (Education)</span>
-            <span class="deliverable-tag">Contact Page</span>
-            <span class="deliverable-tag">Mobile Responsive</span>
-            <span class="deliverable-tag">Basic SEO Setup</span>
-            <span class="deliverable-tag">GMB Linked</span>
-            <span class="deliverable-tag">WhatsApp CTA</span>
-          </div>
+        <div class="s-num">03</div>
+        <div>
+          <span class="s-badge">Brand Authority</span>
+          <h3 class="s-title2">Professional Business Website<br>with Handloom Storytelling</h3>
+          <p class="s-desc2">A 5-page custom website to educate, inspire trust, and convert visitors into customers. The website tells your story — who you are, where your fabric comes from, why handmade costs more, and why it's worth it.</p>
+          <p class="s-desc2" style="margin-top:12px">Google trusts businesses with a proper website more than those without one. It acts as the anchor for all your other digital presence.</p>
+          <div class="s-deliverables"><span class="dtag">5-Page Website</span><span class="dtag">Home Page</span><span class="dtag">About &amp; Our Story</span><span class="dtag">Products / Collections</span><span class="dtag">Why Handloom (Education)</span><span class="dtag">Contact Page</span><span class="dtag">Mobile Responsive</span><span class="dtag">Basic SEO Setup</span><span class="dtag">GMB Linked</span><span class="dtag">WhatsApp CTA</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="ornament-divider" style="padding-top:40px;padding-bottom:40px;">
-  <div class="ornament-line"></div>
-  <div class="ornament-symbol">✦ &nbsp; ✦ &nbsp; ✦</div>
-  <div class="ornament-line"></div>
-</div>
+<div class="ornament"><div class="orn-line"></div><div class="orn-sym">✦ &nbsp; ✦ &nbsp; ✦</div><div class="orn-line"></div></div>
 
 <!-- ── GMB GUIDE ── -->
-<section class="section-full gmb-bg" id="sec-gmb">
-  <div class="section" style="padding-top:0;padding-bottom:0;">
-    <div class="reveal">
-      <div class="section-label" style="color:var(--saffron);">How GMB Works</div>
-      <h2 class="section-title" style="color:var(--white);">The 6-Phase Google Business<br><em>Optimization Process</em></h2>
-      <div class="divider"></div>
-      <p class="section-intro" style="color:rgba(255,255,255,0.45);">Here is exactly how we will optimize your Google Business Profile — step by step — so you know precisely what work is being done on your behalf.</p>
-    </div>
+<section class="section-full gmb-bg" id="s4">
+  <div class="section" style="padding-top:0;padding-bottom:0">
+    <div class="reveal"><div class="sl" style="color:var(--saffron)">How GMB Works</div><h2 class="st" style="color:var(--white)">The 6-Phase Google Business<br><em>Optimization Process</em></h2><div class="divider"></div><p class="si" style="color:rgba(255,255,255,.45)">Exactly how we optimize your Google Business Profile — step by step.</p></div>
     <div class="gmb-phases">
-      <div class="gmb-phase tilt-card reveal" style="animation-delay:0s">
-        <div class="phase-header">
-          <div class="phase-num-circle">1</div>
-          <div><div class="phase-title">Setup &amp; Verification</div><div class="phase-subtitle">Day 1–3</div></div>
-        </div>
-        <ul class="phase-items">
-          <li class="phase-item">Claim or create your GMB profile</li>
-          <li class="phase-item">Video verification — show storefront live to Google</li>
-          <li class="phase-item">Add exact legal business name (no keyword stuffing)</li>
-          <li class="phase-item">Enter full address with Latur PIN code</li>
-          <li class="phase-item">Set accurate business hours &amp; weekly off day</li>
-        </ul>
-      </div>
-      <div class="gmb-phase tilt-card reveal">
-        <div class="phase-header">
-          <div class="phase-num-circle">2</div>
-          <div><div class="phase-title">Category &amp; Description</div><div class="phase-subtitle">Day 3–5</div></div>
-        </div>
-        <ul class="phase-items">
-          <li class="phase-item">Primary category: Clothing Store / Textile Store</li>
-          <li class="phase-item">Secondary: Saree Store, Handicraft Store, Cotton Fabric Store</li>
-          <li class="phase-item">750-character keyword-rich business description</li>
-          <li class="phase-item">Include: handloom, Latur, natural dye, handmade, cotton</li>
-          <li class="phase-item">Add all attributes: women-friendly, in-store shopping etc.</li>
-        </ul>
-      </div>
-      <div class="gmb-phase tilt-card reveal">
-        <div class="phase-header">
-          <div class="phase-num-circle">3</div>
-          <div><div class="phase-title">Photos &amp; Products</div><div class="phase-subtitle">Day 5–7</div></div>
-        </div>
-        <ul class="phase-items">
-          <li class="phase-item">15+ photos: storefront, interior, products, textures</li>
-          <li class="phase-item">Cover photo: best-selling saree or collection display</li>
-          <li class="phase-item">Add 10–15 products to Google with photos &amp; prices</li>
-          <li class="phase-item">Products sync to Google Shopping automatically</li>
-          <li class="phase-item">Services section: list all offerings in detail</li>
-        </ul>
-      </div>
-      <div class="gmb-phase tilt-card reveal">
-        <div class="phase-header">
-          <div class="phase-num-circle">4</div>
-          <div><div class="phase-title">Q&amp;A Seeding</div><div class="phase-subtitle">Day 7</div></div>
-        </div>
-        <ul class="phase-items">
-          <li class="phase-item">"Do you sell handmade sarees in Latur?" → Yes...</li>
-          <li class="phase-item">"Are your fabrics natural and chemical-free?" → Yes...</li>
-          <li class="phase-item">"Can I inquire on WhatsApp?" → Yes, [number]</li>
-          <li class="phase-item">"What is the price range of sarees?" → [Your range]</li>
-          <li class="phase-item">Include "Latur" naturally in all answers for local SEO</li>
-        </ul>
-      </div>
-      <div class="gmb-phase tilt-card reveal">
-        <div class="phase-header">
-          <div class="phase-num-circle">5</div>
-          <div><div class="phase-title">Google Posts (Weekly)</div><div class="phase-subtitle">Ongoing</div></div>
-        </div>
-        <ul class="phase-items">
-          <li class="phase-item">Product post: new arrival saree with WhatsApp link</li>
-          <li class="phase-item">Educational post: "Why handloom costs more" content</li>
-          <li class="phase-item">Offer post: festive / seasonal promotions</li>
-          <li class="phase-item">Behind-the-scenes: weaving process, natural dyes</li>
-          <li class="phase-item">4 posts/month keeps profile active &amp; ranked</li>
-        </ul>
-      </div>
-      <div class="gmb-phase tilt-card reveal">
-        <div class="phase-header">
-          <div class="phase-num-circle">6</div>
-          <div><div class="phase-title">Reviews Strategy</div><div class="phase-subtitle">Ongoing</div></div>
-        </div>
-        <ul class="phase-items">
-          <li class="phase-item">Create a short Google review link for easy sharing</li>
-          <li class="phase-item">Ask 5–10 existing happy customers to review</li>
-          <li class="phase-item">Respond to every review within 24 hours</li>
-          <li class="phase-item">Target: 4.0+ star rating (required for "best" searches)</li>
-          <li class="phase-item">Businesses responding to reviews are 1.7× more trusted</li>
-        </ul>
-      </div>
+      <div class="gmb-phase tilt reveal"><div class="ph-header"><div class="ph-circle">1</div><div><div class="ph-title">Setup &amp; Verification</div><div class="ph-sub">Day 1–3</div></div></div><ul class="ph-items"><li class="ph-item">Claim or create your GMB profile</li><li class="ph-item">Video verification — show storefront live to Google</li><li class="ph-item">Add exact legal business name</li><li class="ph-item">Enter full address with Latur PIN code</li><li class="ph-item">Set accurate business hours &amp; weekly off day</li></ul></div>
+      <div class="gmb-phase tilt reveal"><div class="ph-header"><div class="ph-circle">2</div><div><div class="ph-title">Category &amp; Description</div><div class="ph-sub">Day 3–5</div></div></div><ul class="ph-items"><li class="ph-item">Primary category: Clothing Store / Textile Store</li><li class="ph-item">Secondary: Saree Store, Handicraft Store, Cotton Fabric Store</li><li class="ph-item">750-character keyword-rich business description</li><li class="ph-item">Include: handloom, Latur, natural dye, handmade, cotton</li><li class="ph-item">Add all attributes: women-friendly, in-store shopping etc.</li></ul></div>
+      <div class="gmb-phase tilt reveal"><div class="ph-header"><div class="ph-circle">3</div><div><div class="ph-title">Photos &amp; Products</div><div class="ph-sub">Day 5–7</div></div></div><ul class="ph-items"><li class="ph-item">15+ photos: storefront, interior, products, textures</li><li class="ph-item">Cover photo: best-selling saree or collection</li><li class="ph-item">Add 10–15 products to Google with photos</li><li class="ph-item">Products sync to Google Shopping automatically</li><li class="ph-item">Services section: list all offerings in detail</li></ul></div>
+      <div class="gmb-phase tilt reveal"><div class="ph-header"><div class="ph-circle">4</div><div><div class="ph-title">Q&amp;A Seeding</div><div class="ph-sub">Day 7</div></div></div><ul class="ph-items"><li class="ph-item">"Do you sell handmade sarees in Latur?" → Yes...</li><li class="ph-item">"Are your fabrics natural and chemical-free?" → Yes...</li><li class="ph-item">"Can I inquire on WhatsApp?" → Yes, [number]</li><li class="ph-item">"What is the price range of sarees?" → [Your range]</li><li class="ph-item">Include "Latur" naturally in all answers for local SEO</li></ul></div>
+      <div class="gmb-phase tilt reveal"><div class="ph-header"><div class="ph-circle">5</div><div><div class="ph-title">Google Posts (Weekly)</div><div class="ph-sub">Ongoing</div></div></div><ul class="ph-items"><li class="ph-item">Product post: new arrival saree with WhatsApp link</li><li class="ph-item">Educational post: "Why handloom costs more"</li><li class="ph-item">Offer post: festive / seasonal promotions</li><li class="ph-item">Behind-the-scenes: weaving process, natural dyes</li><li class="ph-item">4 posts/month keeps profile active &amp; ranked</li></ul></div>
+      <div class="gmb-phase tilt reveal"><div class="ph-header"><div class="ph-circle">6</div><div><div class="ph-title">Reviews Strategy</div><div class="ph-sub">Ongoing</div></div></div><ul class="ph-items"><li class="ph-item">Create a short Google review link for easy sharing</li><li class="ph-item">Ask 5–10 existing happy customers to review</li><li class="ph-item">Respond to every review within 24 hours</li><li class="ph-item">Target: 4.0+ star rating (required for "best" searches)</li><li class="ph-item">Businesses responding to reviews are 1.7× more trusted</li></ul></div>
     </div>
   </div>
 </section>
 
-<!-- ── PACKAGES ── -->
-<section class="section-full" style="background:var(--dark);padding-top:100px;padding-bottom:100px;" id="sec-packages">
-  <div class="section" style="padding-top:0;padding-bottom:0;">
-    <div class="reveal">
-      <div class="section-label" style="color:var(--saffron);">Choose Your Start</div>
-      <h2 class="section-title" style="color:var(--white);">Pick the Package That<br><em>Fits You Today</em></h2>
-      <div class="divider"></div>
-      <p class="section-intro" style="color:rgba(255,255,255,0.45);">You don't have to start with everything. Begin with what makes the most immediate impact and expand as results come in.</p>
-    </div>
-    <div class="packages-grid">
-      <div class="package-card tilt-card reveal">
-        <div class="pkg-name">Starter</div>
-        <div class="pkg-title">Visibility First</div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Google Business Profile setup</li>
-          <li class="pkg-feature">Full 6-phase optimization</li>
-          <li class="pkg-feature">Appears on Google Maps &amp; Search</li>
-          <li class="pkg-feature">Product &amp; service listings</li>
-          <li class="pkg-feature">Review collection strategy</li>
-        </ul>
-        <div class="pkg-cta">Contact us to get started</div>
-      </div>
-      <div class="package-card featured tilt-card reveal">
-        <div class="pkg-name">Recommended</div>
-        <div class="pkg-title">Visibility + Online Store</div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Everything in Starter</li>
-          <li class="pkg-feature">Shopify store (20 products)</li>
-          <li class="pkg-feature">WhatsApp order integration</li>
-          <li class="pkg-feature">Digital product catalogue</li>
-          <li class="pkg-feature">Admin panel training</li>
-          <li class="pkg-feature">Mobile-first storefront</li>
-        </ul>
-        <div class="pkg-cta">Contact us to get started</div>
-      </div>
-      <div class="package-card tilt-card reveal">
-        <div class="pkg-name">Complete</div>
-        <div class="pkg-title">Full Digital Presence</div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">GMB full optimization</li>
-          <li class="pkg-feature">Shopify store (20 products)</li>
-          <li class="pkg-feature">5-page business website</li>
-          <li class="pkg-feature">Handloom education content</li>
-          <li class="pkg-feature">SEO setup across all platforms</li>
-          <li class="pkg-feature">Admin training for all tools</li>
-        </ul>
-        <div class="pkg-cta">Contact us to get started</div>
-      </div>
+<!-- ── PACKAGES (3D FLIP) ── -->
+<section class="section-full" style="background:var(--dark);padding-top:100px;padding-bottom:100px" id="s5">
+  <div class="section" style="padding-top:0;padding-bottom:0">
+    <div class="reveal"><div class="sl" style="color:var(--saffron)">Choose Your Start</div><h2 class="st" style="color:var(--white)">Pick the Package That<br><em>Fits You Today</em></h2><div class="divider"></div><p class="si" style="color:rgba(255,255,255,.45)">Hover over each card to explore. Begin with what makes the most immediate impact.</p></div>
+    <div class="packages-grid reveal">
+      <!-- Starter -->
+      <div class="pkg-scene"><div class="pkg-flip">
+        <div class="pkg-front">
+          <div class="pkg-name">Starter</div>
+          <div class="pkg-title">Visibility First</div>
+          <ul class="pkg-features"><li class="pkg-feature">Google Business Profile setup</li><li class="pkg-feature">Full 6-phase optimization</li><li class="pkg-feature">Appears on Google Maps &amp; Search</li><li class="pkg-feature">Product &amp; service listings</li><li class="pkg-feature">Review collection strategy</li></ul>
+          <div class="pkg-hint">Hover to explore →</div>
+        </div>
+        <div class="pkg-back"><div class="pkg-back-icon">📍</div><div class="pkg-back-msg">Perfect first step.<br>Get found on Google Maps<br>starting this week.</div><a href="tel:9767066941" class="pkg-back-cta">Call to Begin</a></div>
+      </div></div>
+      <!-- Recommended -->
+      <div class="pkg-scene"><div class="pkg-flip">
+        <div class="pkg-front featured-front">
+          <div class="pkg-name">Recommended</div>
+          <div class="pkg-title">Visibility + Online Store</div>
+          <ul class="pkg-features"><li class="pkg-feature">Everything in Starter</li><li class="pkg-feature">Shopify store (20 products)</li><li class="pkg-feature">WhatsApp order integration</li><li class="pkg-feature">Digital product catalogue</li><li class="pkg-feature">Admin panel training</li><li class="pkg-feature">Mobile-first storefront</li></ul>
+          <div class="pkg-hint" style="color:rgba(255,255,255,.3)">Hover to explore →</div>
+        </div>
+        <div class="pkg-back"><div class="pkg-back-icon">🛍️</div><div class="pkg-back-msg">Most popular choice.<br>Be found AND sell online<br>through WhatsApp.</div><a href="tel:9767066941" class="pkg-back-cta">Call to Begin</a></div>
+      </div></div>
+      <!-- Complete -->
+      <div class="pkg-scene"><div class="pkg-flip">
+        <div class="pkg-front">
+          <div class="pkg-name">Complete</div>
+          <div class="pkg-title">Full Digital Presence</div>
+          <ul class="pkg-features"><li class="pkg-feature">GMB full optimization</li><li class="pkg-feature">Shopify store (20 products)</li><li class="pkg-feature">5-page business website</li><li class="pkg-feature">Handloom education content</li><li class="pkg-feature">SEO setup across all platforms</li><li class="pkg-feature">Admin training for all tools</li></ul>
+          <div class="pkg-hint">Hover to explore →</div>
+        </div>
+        <div class="pkg-back"><div class="pkg-back-icon">🌐</div><div class="pkg-back-msg">Total transformation.<br>GMB + Store + Website.<br>Latur's #1 handloom brand.</div><a href="tel:9767066941" class="pkg-back-cta">Call to Begin</a></div>
+      </div></div>
     </div>
   </div>
 </section>
 
-<div class="ornament-divider" style="padding-top:40px;padding-bottom:40px;">
-  <div class="ornament-line"></div>
-  <div class="ornament-symbol">◆ &nbsp; ◆ &nbsp; ◆</div>
-  <div class="ornament-line"></div>
-</div>
+<div class="ornament"><div class="orn-line"></div><div class="orn-sym">◆ &nbsp; ◆ &nbsp; ◆</div><div class="orn-line"></div></div>
 
 <!-- ── PROCESS ── -->
-<section class="section" id="sec-process">
-  <div class="reveal">
-    <div class="section-label">Project Timeline</div>
-    <h2 class="section-title">From Kickoff to <em>Live</em> —<br>Here Is What Happens</h2>
-    <div class="divider"></div>
-    <p class="section-intro">Once we begin, work starts immediately. Here is the exact week-by-week delivery schedule for the complete package.</p>
-  </div>
+<section class="section" id="s6">
+  <div class="reveal"><div class="sl">Project Timeline</div><h2 class="st">From Kickoff to <em>Live</em> —<br>Here Is What Happens</h2><div class="divider"></div><p class="si">Once we begin, work starts immediately. Here is the exact delivery schedule.</p></div>
   <div class="process-timeline">
-    <div class="process-step reveal">
-      <div class="process-circle">1</div>
-      <div class="process-content">
-        <div class="process-week">Day 1 — Project Kickoff</div>
-        <div class="process-step-title">Kickoff &amp; Information Collection</div>
-        <div class="process-step-desc">We collect all required information: business name, address, phone, photos, product list, pricing, and brand details. We also do a competitor analysis of handloom businesses currently ranking in Latur.</div>
-      </div>
-    </div>
-    <div class="process-step reveal">
-      <div class="process-circle">2</div>
-      <div class="process-content">
-        <div class="process-week">Days 2–5</div>
-        <div class="process-step-title">GMB Setup &amp; Verification</div>
-        <div class="process-step-desc">Profile is created or claimed. Video verification is completed. All fields filled — categories, description, hours, products, photos, Q&amp;A. Profile is fully optimized and submitted for Google indexing.</div>
-      </div>
-    </div>
-    <div class="process-step reveal">
-      <div class="process-circle">3</div>
-      <div class="process-content">
-        <div class="process-week">Days 5–12</div>
-        <div class="process-step-title">Shopify Store Built &amp; Products Listed</div>
-        <div class="process-step-desc">Store theme is set up and customized with your brand colors and logo. All 20 products are listed with photos, descriptions, fabric details, and WhatsApp "Order Now" button. Mobile tested across devices.</div>
-      </div>
-    </div>
-    <div class="process-step reveal">
-      <div class="process-circle">4</div>
-      <div class="process-content">
-        <div class="process-week">Days 12–22</div>
-        <div class="process-step-title">Website Designed &amp; Developed</div>
-        <div class="process-step-desc">5-page website built with your story, product showcase, handloom education content, and contact page. SEO meta tags set up for all pages. Website linked to GMB profile. Mobile responsive and fast-loading.</div>
-      </div>
-    </div>
-    <div class="process-step reveal">
-      <div class="process-circle">5</div>
-      <div class="process-content">
-        <div class="process-week">Day 23–25</div>
-        <div class="process-step-title">Review, Final Changes &amp; Delivery</div>
-        <div class="process-step-desc">You review everything. We make required changes. Final balance payment is received. Admin panel training is given. Everything is handed over to you — login credentials, guides, and a review strategy document.</div>
-      </div>
-    </div>
-    <div class="process-step reveal">
-      <div class="process-circle">✓</div>
-      <div class="process-content" style="border-color:var(--saffron);background:var(--saffron-pale);">
-        <div class="process-week" style="color:var(--saffron);">Day 25 Onwards</div>
-        <div class="process-step-title" style="color:var(--dark);">You Are Live. Customers Can Find You.</div>
-        <div class="process-step-desc" style="color:var(--charcoal);">Your business appears on Google Maps, Google Search, and has a Shopify store and website live. Customers searching for handloom in Latur now find you first.</div>
-      </div>
-    </div>
+    <div class="process-step reveal"><div class="proc-circle">1</div><div class="proc-content"><div class="proc-week">Day 1 — Project Kickoff</div><div class="proc-step-title">Kickoff &amp; Information Collection</div><div class="proc-step-desc">We collect business name, address, phone, photos, product list, and brand details. We also do a competitor analysis of handloom businesses currently ranking in Latur.</div></div></div>
+    <div class="process-step reveal"><div class="proc-circle">2</div><div class="proc-content"><div class="proc-week">Days 2–5</div><div class="proc-step-title">GMB Setup &amp; Verification</div><div class="proc-step-desc">Profile is created or claimed. Video verification is completed. All fields filled — categories, description, hours, products, photos, Q&amp;A. Submitted for Google indexing.</div></div></div>
+    <div class="process-step reveal"><div class="proc-circle">3</div><div class="proc-content"><div class="proc-week">Days 5–12</div><div class="proc-step-title">Shopify Store Built &amp; Products Listed</div><div class="proc-step-desc">Store theme set up with your brand colors and logo. All 20 products listed with photos, descriptions, fabric details, and WhatsApp "Order Now" button. Mobile tested.</div></div></div>
+    <div class="process-step reveal"><div class="proc-circle">4</div><div class="proc-content"><div class="proc-week">Days 12–22</div><div class="proc-step-title">Website Designed &amp; Developed</div><div class="proc-step-desc">5-page website with your story, product showcase, handloom education content, and contact page. SEO meta tags, GMB link, mobile responsive.</div></div></div>
+    <div class="process-step reveal"><div class="proc-circle">5</div><div class="proc-content"><div class="proc-week">Day 23–25</div><div class="proc-step-title">Review, Final Changes &amp; Delivery</div><div class="proc-step-desc">You review everything. We make changes. Admin panel training given. All login credentials and guides handed over.</div></div></div>
+    <div class="process-step reveal"><div class="proc-circle">✓</div><div class="proc-content" style="border-color:var(--saffron);background:var(--saffron-pale)"><div class="proc-week" style="color:var(--saffron)">Day 25 Onwards</div><div class="proc-step-title" style="color:var(--dark)">You Are Live. Customers Can Find You.</div><div class="proc-step-desc" style="color:var(--charcoal)">Your business appears on Google Maps, Search, and has a Shopify store and website live. Customers searching for handloom in Latur now find you first.</div></div></div>
   </div>
 </section>
 
-<!-- ── WHY ADS4YOU ── -->
-<section class="section-full" style="background:var(--saffron-pale);padding-top:100px;padding-bottom:100px;" id="sec-why">
-  <div class="section" style="padding-top:0;padding-bottom:0;">
-    <div class="reveal">
-      <div class="section-label">Why Ads4You</div>
-      <h2 class="section-title">Why Work With <em>Us</em></h2>
-      <div class="divider"></div>
-    </div>
+<!-- ── WHY ── -->
+<section class="section-full" style="background:var(--saffron-pale);padding-top:100px;padding-bottom:100px" id="s7">
+  <div class="section" style="padding-top:0;padding-bottom:0">
+    <div class="reveal"><div class="sl">Why Ads4You</div><h2 class="st">Why Work With <em>Us</em></h2><div class="divider"></div></div>
     <div class="why-grid reveal">
-      <div class="why-card tilt-card">
-        <div class="why-icon">🎯</div>
-        <div class="why-title">Strategy Before Execution</div>
-        <div class="why-desc">We researched your market, your competition in Latur, and the handloom industry before writing a single word of this proposal. You get thinking, not just tasks.</div>
-      </div>
-      <div class="why-card tilt-card">
-        <div class="why-icon">📍</div>
-        <div class="why-title">Tier-3 City Expertise</div>
-        <div class="why-desc">We understand Latur's market. Our strategy is built for a local audience — not a generic template designed for Mumbai or Pune businesses.</div>
-      </div>
-      <div class="why-card tilt-card">
-        <div class="why-icon">🤝</div>
-        <div class="why-title">No Advance, No Work</div>
-        <div class="why-desc">We operate on a simple 50/50 payment model. 50% before we start, 50% on delivery. Transparent, clean, no surprises.</div>
-      </div>
-      <div class="why-card tilt-card">
-        <div class="why-icon">📱</div>
-        <div class="why-title">Mobile-First Everything</div>
-        <div class="why-desc">Every deliverable — GMB profile, Shopify store, website — is built mobile-first because 80% of your customers will find you on their phones.</div>
-      </div>
-      <div class="why-card tilt-card">
-        <div class="why-icon">🧵</div>
-        <div class="why-title">We Understand Your Product</div>
-        <div class="why-desc">Handloom is not just fabric — it is heritage, craft, and culture. Our content strategy reflects this. We write about your products the way they deserve to be written about.</div>
-      </div>
-      <div class="why-card tilt-card">
-        <div class="why-icon">📊</div>
-        <div class="why-title">Registered Indian Business</div>
-        <div class="why-desc">Ads4You is registered under Udyam, GeM, NSIC B2B, and Skill India. You are working with a legitimate, accountable business — not a freelancer who disappears.</div>
-      </div>
+      <div class="why-card tilt"><div class="why-icon">🎯</div><div class="why-title">Strategy Before Execution</div><div class="why-desc">We researched your market, your competition in Latur, and the handloom industry before writing a single word of this proposal.</div></div>
+      <div class="why-card tilt"><div class="why-icon">📍</div><div class="why-title">Tier-3 City Expertise</div><div class="why-desc">Our strategy is built for a local audience — not a generic template designed for Mumbai or Pune businesses.</div></div>
+      <div class="why-card tilt"><div class="why-icon">🤝</div><div class="why-title">No Advance, No Work</div><div class="why-desc">50% before we start, 50% on delivery. Transparent, clean, no surprises.</div></div>
+      <div class="why-card tilt"><div class="why-icon">📱</div><div class="why-title">Mobile-First Everything</div><div class="why-desc">Every deliverable is built mobile-first because 80% of your customers will find you on their phones.</div></div>
+      <div class="why-card tilt"><div class="why-icon">🧵</div><div class="why-title">We Understand Your Product</div><div class="why-desc">Handloom is not just fabric — it is heritage, craft, and culture. We write about your products the way they deserve.</div></div>
+      <div class="why-card tilt"><div class="why-icon">📊</div><div class="why-title">Registered Indian Business</div><div class="why-desc">Ads4You is registered under Udyam, GeM, NSIC B2B, and Skill India. Legitimate and accountable.</div></div>
     </div>
   </div>
 </section>
 
 <!-- ── TERMS ── -->
-<section class="section" id="sec-terms">
-  <div class="reveal">
-    <div class="section-label">Terms &amp; Conditions</div>
-    <h2 class="section-title">How We <em>Work Together</em></h2>
-    <div class="divider"></div>
-  </div>
+<section class="section">
+  <div class="reveal"><div class="sl">Terms &amp; Conditions</div><h2 class="st">How We <em>Work Together</em></h2><div class="divider"></div></div>
   <ul class="tc-list reveal">
     <li class="tc-item">50% advance payment is required before any work begins. Work starts only after advance is received and confirmed.</li>
     <li class="tc-item">Remaining 50% balance is due on final delivery and handover of all assets and login credentials.</li>
@@ -1764,224 +473,256 @@
 </section>
 
 <!-- ── CTA ── -->
-<section class="cta-section" id="sec-cta">
-  <div class="cta-content">
+<section class="cta-section" id="s8">
+  <div class="cta-inner">
     <h2 class="cta-title">Ready to Make Vishita : The Elegant Choice<br><em>Latur's Most Visible</em> Craft Brand?</h2>
     <p class="cta-sub">Every day without a digital presence is a day your competitors get found and you don't. Let's change that — starting this week.</p>
-    <div class="cta-buttons">
+    <div class="cta-btns">
       <a href="tel:9767066941" class="btn-primary">Call to Confirm — 97670 66941</a>
       <a href="mailto:ads4you@zohomail.com" class="btn-secondary">Email Us</a>
     </div>
     <div class="cta-contact">
-      <div class="contact-item">
-        <div class="contact-label">Phone / WhatsApp</div>
-        <div class="contact-value">+91 97670 66941</div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-label">Email</div>
-        <div class="contact-value">ads4you@zohomail.com</div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-label">Website</div>
-        <div class="contact-value">hshant966.github.io/ads4you</div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-label">Location</div>
-        <div class="contact-value">Wakad, Pune, Maharashtra</div>
-      </div>
+      <div class="contact-item"><div class="c-label">Phone / WhatsApp</div><div class="c-val">+91 97670 66941</div></div>
+      <div class="contact-item"><div class="c-label">Email</div><div class="c-val">ads4you@zohomail.com</div></div>
+      <div class="contact-item"><div class="c-label">Website</div><div class="c-val">hshant966.github.io/ads4you</div></div>
+      <div class="contact-item"><div class="c-label">Location</div><div class="c-val">Wakad, Pune, Maharashtra</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
 <footer class="footer">
   <div class="footer-brand"><span>Ads</span>4You — AI Automation Studio</div>
   <div class="footer-note">Udyam Reg. UDYAM-MH-26-1092780 · GeM Vendor · NSIC B2B · Skill India · Wakad, Pune</div>
-  <div class="footer-note" style="margin-top:8px;">This proposal is confidential and prepared exclusively for Vishita : The Elegant Choice, Latur.</div>
+  <div class="footer-note" style="margin-top:8px">This proposal is confidential and prepared exclusively for Vishita : The Elegant Choice, Latur.</div>
 </footer>
 
 <script>
-/* ── SILK THREAD JOURNEY ── */
+/* ════════════════════════════════════════
+   THREE.JS — SILK FIBER UNIVERSE (HERO)
+════════════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('silkCanvas');
+  const W = canvas.offsetWidth, H = canvas.offsetHeight;
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(W, H);
+
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(70, W/H, 0.1, 200);
+  camera.position.z = 18;
+
+  /* Colour palette — saffron, gold, cream */
+  const palette = [
+    new THREE.Color(0xE8621A),
+    new THREE.Color(0xF5843E),
+    new THREE.Color(0xC9A84C),
+    new THREE.Color(0xE8C97A),
+    new THREE.Color(0xFBF7F0),
+  ];
+
+  /* ── 350 silk thread lines ── */
+  const fibers = [];
+  for(let i=0;i<350;i++){
+    const pts = [];
+    const x = (Math.random()-.5)*50;
+    const y = (Math.random()-.5)*50;
+    const z = (Math.random()-.5)*30;
+    const len = Math.random()*3+.4;
+    const ang = Math.random()*Math.PI*2;
+    pts.push(new THREE.Vector3(x, y, z));
+    pts.push(new THREE.Vector3(x+Math.cos(ang)*len, y+Math.sin(ang)*len, z+Math.random()*len*.5));
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    const col = palette[Math.floor(Math.random()*palette.length)].clone();
+    const mat = new THREE.LineBasicMaterial({
+      color: col,
+      transparent: true,
+      opacity: Math.random()*.25+.03,
+    });
+    const line = new THREE.Line(geo, mat);
+    scene.add(line);
+    fibers.push({
+      line,
+      vy:   (Math.random()-.5)*.008,
+      vrot: (Math.random()-.5)*.002,
+      oz:   z,
+    });
+  }
+
+  /* ── 200 glowing dust points ── */
+  const pts = new Float32Array(200*3);
+  const cols = new Float32Array(200*3);
+  for(let i=0;i<200;i++){
+    pts[i*3]   = (Math.random()-.5)*60;
+    pts[i*3+1] = (Math.random()-.5)*60;
+    pts[i*3+2] = (Math.random()-.5)*40;
+    const c = palette[Math.floor(Math.random()*palette.length)];
+    cols[i*3]=c.r; cols[i*3+1]=c.g; cols[i*3+2]=c.b;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pts,3));
+  pGeo.setAttribute('color',    new THREE.BufferAttribute(cols,3));
+  const pMat = new THREE.PointsMaterial({size:.18, vertexColors:true, transparent:true, opacity:.5});
+  scene.add(new THREE.Points(pGeo,pMat));
+
+  /* Mouse parallax */
+  let mx=0, my=0, tmx=0, tmy=0;
+  document.addEventListener('mousemove', e=>{
+    tmx = (e.clientX/window.innerWidth -.5)*4;
+    tmy = (e.clientY/window.innerHeight-.5)*4;
+  });
+
+  /* Scroll zoom */
+  let scrollProg = 0;
+  window.addEventListener('scroll', ()=>{
+    scrollProg = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  }, {passive:true});
+
+  let t=0;
+  function animate(){
+    requestAnimationFrame(animate);
+    t += .002;
+
+    /* Smooth mouse */
+    mx += (tmx-mx)*.04;
+    my += (tmy-my)*.04;
+    camera.position.x = mx*.8;
+    camera.position.y = -my*.8;
+    camera.position.z = 18 + scrollProg*6;
+    camera.lookAt(scene.position);
+
+    /* Gentle scene rotation */
+    scene.rotation.y = t*.12;
+    scene.rotation.x = Math.sin(t*.07)*.06;
+
+    /* Drift fibers */
+    fibers.forEach(f=>{
+      f.line.position.y += f.vy;
+      f.line.rotation.z += f.vrot;
+      if(f.line.position.y > 26)  f.line.position.y = -26;
+      if(f.line.position.y < -26) f.line.position.y =  26;
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  /* Resize */
+  window.addEventListener('resize', ()=>{
+    const w=canvas.offsetWidth, h=canvas.offsetHeight;
+    camera.aspect=w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w,h);
+  });
+})();
+
+/* ════════════════════════════════════════
+   SILK THREAD SIDEBAR
+════════════════════════════════════════ */
 const sections = [
-  { id: 'sec-cover',    label: 'Begin' },
-  { id: 'sec-problems', label: 'Challenge' },
-  { id: 'sec-strategy', label: 'Strategy' },
-  { id: 'sec-services', label: 'Services' },
-  { id: 'sec-gmb',      label: 'Process' },
-  { id: 'sec-packages', label: 'Packages' },
-  { id: 'sec-cta',      label: 'Connect' },
+  {id:'s0',label:'Begin'},{id:'s1',label:'Challenge'},{id:'s2',label:'Strategy'},
+  {id:'s3',label:'Services'},{id:'s4',label:'GMB'},{id:'s5',label:'Packages'},{id:'s8',label:'Connect'}
 ];
+const tFill   = document.getElementById('tFill');
+const tShuttle= document.getElementById('tShuttle');
+const tWps    = document.getElementById('tWps');
+const tBar    = document.getElementById('threadBar');
 
-const threadFill    = document.getElementById('threadFill');
-const threadShuttle = document.getElementById('threadShuttle');
-const threadWps     = document.getElementById('threadWaypoints');
-const progressBar   = document.getElementById('threadProgressBar');
-
-/* Build waypoint dots */
-sections.forEach((s, i) => {
-  const pct = (i / (sections.length - 1)) * 100;
+sections.forEach((s,i)=>{
+  const pct = (i/(sections.length-1))*100;
   const wp = document.createElement('div');
-  wp.className = 'wp';
-  wp.dataset.section = s.id;
-  wp.style.top = pct + '%';
-  wp.innerHTML = `<div class="wp-dot"></div><span class="wp-label">${s.label}</span>`;
-  threadWps.appendChild(wp);
+  wp.className='t-wp'; wp.dataset.id=s.id;
+  wp.style.top=pct+'%';
+  wp.innerHTML=`<div class="t-wp-dot"></div><span class="t-wp-label">${s.label}</span>`;
+  tWps.appendChild(wp);
 });
 
-function updateThread() {
-  const scrollY   = window.scrollY;
-  const docH      = document.body.scrollHeight - window.innerHeight;
-  const progress  = Math.min(scrollY / docH, 1);
-
-  /* fill + shuttle */
-  const pct = progress * 100;
-  threadFill.style.height    = pct + '%';
-  threadShuttle.style.top    = pct + '%';
-  progressBar.style.width    = pct + '%';
-
-  /* waypoint activation */
-  sections.forEach((s, i) => {
-    const el = document.getElementById(s.id);
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const wp   = threadWps.children[i];
-    if (rect.top <= window.innerHeight * 0.6) {
-      wp.classList.add('active');
-    } else {
-      wp.classList.remove('active');
-    }
+function updateThread(){
+  const prog = Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight),1);
+  const pct  = prog*100;
+  tFill.style.height    = pct+'%';
+  tShuttle.style.top    = pct+'%';
+  tBar.style.width      = pct+'%';
+  sections.forEach((s,i)=>{
+    const el = document.getElementById(s.id); if(!el) return;
+    tWps.children[i].classList.toggle('active', el.getBoundingClientRect().top<=window.innerHeight*.6);
   });
 }
-
-window.addEventListener('scroll', updateThread, { passive: true });
+window.addEventListener('scroll', updateThread, {passive:true});
 updateThread();
 
-/* ── STICKY NAV ── */
+/* ════════════════════════════════════════
+   STICKY NAV
+════════════════════════════════════════ */
 const nav = document.getElementById('stickyNav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
-}, { passive: true });
+window.addEventListener('scroll', ()=>{
+  nav.classList.toggle('visible', window.scrollY > window.innerHeight*.8);
+},{passive:true});
 
-/* ── PARALLAX HERO ── */
-const coverPattern = document.getElementById('coverPattern');
-const coverContent = document.getElementById('coverContent');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  if (y < window.innerHeight * 1.5) {
-    coverPattern.style.transform = `translateY(${y * 0.35}px)`;
-    coverContent.style.transform = `translateY(${y * 0.12}px)`;
-  }
-}, { passive: true });
-
-/* ── FLOATING FIBER PARTICLES ── */
-(function generateFibers() {
-  const cover  = document.querySelector('.cover');
-  const colors = [
-    'rgba(232,98,26,', 'rgba(201,168,76,', 'rgba(245,132,62,', 'rgba(255,255,255,'
-  ];
-  for (let i = 0; i < 28; i++) {
-    const f   = document.createElement('div');
-    f.classList.add('fiber-particle');
-    const isThread = Math.random() > 0.4;
-    const col  = colors[Math.floor(Math.random() * colors.length)];
-    const op   = (Math.random() * 0.18 + 0.04).toFixed(2);
-    f.style.cssText = `
-      left:${Math.random() * 100}%;
-      bottom:-60px;
-      width:${isThread ? (Math.random()*1.5+0.5).toFixed(1)+'px' : (Math.random()*5+2).toFixed(1)+'px'};
-      height:${isThread ? (Math.random()*70+30).toFixed(0)+'px' : (Math.random()*5+2).toFixed(1)+'px'};
-      background:${col}${op});
-      border-radius:${isThread?'100px':'50%'};
-      animation-duration:${(Math.random()*14+10).toFixed(1)}s;
-      animation-delay:-${(Math.random()*15).toFixed(1)}s;
-    `;
-    cover.appendChild(f);
-  }
-})();
-
-/* ── 3D TILT ── */
-document.querySelectorAll('.tilt-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    card.style.transition = 'transform 0.05s ease, box-shadow 0.3s';
-    card.style.transform  = `perspective(900px) rotateX(${y * -12}deg) rotateY(${x * 12}deg) translateZ(12px)`;
+/* ════════════════════════════════════════
+   3D TILT (all .tilt elements)
+════════════════════════════════════════ */
+document.querySelectorAll('.tilt').forEach(el=>{
+  el.addEventListener('mousemove', e=>{
+    const r=el.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    el.style.transition='transform .05s ease,box-shadow .3s';
+    el.style.transform=`perspective(900px) rotateX(${y*-14}deg) rotateY(${x*14}deg) translateZ(14px)`;
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transition = 'transform 0.5s ease, box-shadow 0.3s';
-    card.style.transform  = '';
+  el.addEventListener('mouseleave', ()=>{
+    el.style.transition='transform .5s ease,box-shadow .3s';
+    el.style.transform='';
   });
 });
 
-/* ── ANIMATED STAT COUNTERS ── */
-const counterObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting || entry.target.dataset.counted) return;
-    entry.target.dataset.counted = '1';
-    const el     = entry.target;
-    const target = parseFloat(el.dataset.target);
-    const suffix = el.dataset.suffix || '';
-    let   val    = 0;
-    const dur    = 1800;
-    const step   = target / (dur / 16);
-    const timer  = setInterval(() => {
-      val += step;
-      if (val >= target) { el.textContent = target + suffix; clearInterval(timer); }
-      else               { el.textContent = Math.floor(val) + suffix; }
-    }, 16);
+/* ════════════════════════════════════════
+   ANIMATED STAT COUNTERS
+════════════════════════════════════════ */
+const cObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting||e.target.dataset.done) return;
+    e.target.dataset.done='1';
+    const el=e.target, tgt=+el.dataset.t, suf=el.dataset.s||'';
+    let v=0; const step=tgt/(1800/16);
+    const timer=setInterval(()=>{
+      v+=step; if(v>=tgt){el.textContent=tgt+suf;clearInterval(timer);}
+      else el.textContent=Math.floor(v)+suf;
+    },16);
   });
-}, { threshold: 0.6 });
+},{threshold:.6});
+document.querySelectorAll('.stat-num[data-t]').forEach(el=>cObs.observe(el));
 
-document.querySelectorAll('.stat-num[data-target]').forEach(el => counterObs.observe(el));
+/* ════════════════════════════════════════
+   GOLD PARTICLES (CTA)
+════════════════════════════════════════ */
+const cta = document.querySelector('.cta-section');
+setInterval(()=>{
+  const p=document.createElement('div');
+  p.className='gold-particle';
+  const sz=Math.random()*5+2;
+  p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:${Math.random()*35}%;background:${Math.random()>.5?'var(--gold)':'var(--saffron)'};animation-duration:${(Math.random()*2.5+1.5).toFixed(1)}s`;
+  cta.appendChild(p); setTimeout(()=>p.remove(),4000);
+},350);
 
-/* ── GOLD PARTICLES IN CTA ── */
-(function initGoldParticles() {
-  const cta = document.querySelector('.cta-section');
-  function spawn() {
-    const p = document.createElement('div');
-    p.className = 'gold-particle';
-    const size = Math.random() * 5 + 2;
-    p.style.cssText = `
-      width:${size}px; height:${size}px;
-      left:${Math.random()*100}%;
-      bottom:${Math.random()*40}%;
-      background:${Math.random()>0.5?'var(--gold)':'var(--saffron)'};
-      animation-duration:${(Math.random()*2.5+1.5).toFixed(1)}s;
-      opacity:0.5;
-    `;
-    cta.appendChild(p);
-    setTimeout(() => p.remove(), 4000);
-  }
-  setInterval(spawn, 350);
-})();
-
-/* ── BUTTON RIPPLE ── */
-document.querySelectorAll('.btn-primary').forEach(btn => {
-  btn.addEventListener('click', e => {
-    const r    = btn.getBoundingClientRect();
-    const size = Math.max(r.width, r.height);
-    const rip  = document.createElement('span');
-    rip.className = 'ripple-effect';
-    rip.style.cssText = `
-      width:${size}px; height:${size}px;
-      top:${e.clientY - r.top - size/2}px;
-      left:${e.clientX - r.left - size/2}px;
-    `;
-    btn.style.position = 'relative';
-    btn.appendChild(rip);
-    setTimeout(() => rip.remove(), 700);
+/* ════════════════════════════════════════
+   BUTTON RIPPLE
+════════════════════════════════════════ */
+document.querySelectorAll('.btn-primary').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    const r=btn.getBoundingClientRect(), sz=Math.max(r.width,r.height);
+    const rip=document.createElement('span');
+    rip.className='ripple-fx';
+    rip.style.cssText=`width:${sz}px;height:${sz}px;top:${e.clientY-r.top-sz/2}px;left:${e.clientX-r.left-sz/2}px`;
+    btn.appendChild(rip); setTimeout(()=>rip.remove(),700);
   });
 });
 
-/* ── SCROLL REVEAL ── */
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+/* ════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════ */
+const rObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
 </script>
 </body>
 </html>
