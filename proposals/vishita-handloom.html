@@ -71,6 +71,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-b
 .si{font-size:17px;color:var(--text-light);max-width:640px;font-weight:300;line-height:1.8}
 .divider{width:48px;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold));margin:24px 0 48px;border-radius:2px}
 
+/* ── CRAFT HERITAGE ── */
+.craft-section{background:var(--dark);padding:100px 40px;position:relative;overflow:hidden}
+.craft-section::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 11px,rgba(201,168,76,.03) 11px,rgba(201,168,76,.03) 12px),repeating-linear-gradient(90deg,transparent,transparent 11px,rgba(232,98,26,.02) 11px,rgba(232,98,26,.02) 12px)}
+.craft-inner{max-width:1100px;margin:0 auto}
+.craft-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-top:60px;position:relative}
+.craft-steps::before{content:'';position:absolute;top:32px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.25}
+.craft-step{text-align:center;padding:0 24px 0;position:relative}
+.craft-icon-wrap{width:64px;height:64px;border-radius:50%;border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px;background:rgba(26,18,8,.8);position:relative;transition:transform .4s,box-shadow .4s}
+.craft-step:hover .craft-icon-wrap{transform:scale(1.15) translateY(-4px);box-shadow:0 12px 30px rgba(201,168,76,.2)}
+.craft-step-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--saffron);margin-bottom:8px}
+.craft-step-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--white);margin-bottom:8px}
+.craft-step-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.7}
+.craft-arrow{position:absolute;right:-12px;top:20px;color:rgba(201,168,76,.3);font-size:18px;z-index:1}
+@media(max-width:768px){.craft-steps::before{display:none}.craft-arrow{display:none}.craft-steps{gap:32px}}
+
+/* ── DIGITAL TRANSFORMATION ── */
+.transform-section{padding:100px 40px;background:linear-gradient(135deg,var(--saffron-pale) 0%,#FFF8F0 100%)}
+.transform-inner{max-width:1100px;margin:0 auto}
+.transform-split{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:stretch;margin-top:60px}
+.transform-col{border-radius:6px;padding:40px 36px;position:relative;overflow:hidden}
+.transform-before{background:var(--white);border:1px solid var(--border)}
+.transform-after{background:var(--dark);border:1px solid var(--saffron)}
+.transform-after::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold))}
+.transform-col-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;padding:5px 12px;border-radius:2px;display:inline-block}
+.before-label{background:rgba(0,0,0,.06);color:var(--text-light)}
+.after-label{background:rgba(232,98,26,.15);color:var(--saffron)}
+.transform-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.transform-after .transform-item{border-color:rgba(255,255,255,.06)}
+.transform-item:last-child{border-bottom:none}
+.t-icon{font-size:15px;flex-shrink:0;margin-top:2px}
+.t-text{font-size:13px;line-height:1.6}
+.transform-before .t-text{color:var(--text-light)}
+.transform-after .t-text{color:rgba(255,255,255,.7)}
+.transform-arrow-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex-shrink:0}
+.arrow-circle{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--saffron),var(--gold));display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--white);animation:arrowPulse 2s ease-in-out infinite;box-shadow:0 8px 24px rgba(232,98,26,.35)}
+@keyframes arrowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.arrow-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--saffron);font-weight:600;text-align:center}
+@media(max-width:768px){.transform-split{grid-template-columns:1fr}.transform-arrow-col{flex-direction:row}.arrow-circle{width:40px;height:40px;font-size:16px}}
+
 /* ── ORNAMENT ── */
 .ornament{display:flex;align-items:center;gap:16px;padding:36px 40px;max-width:1100px;margin:0 auto}
 .orn-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent)}
@@ -282,6 +321,53 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-b
   <div class="cover-scroll">↓ &nbsp; Scroll to explore</div>
 </section>
 
+<!-- ── CRAFT HERITAGE ── -->
+<section class="craft-section">
+  <div class="craft-inner">
+    <div class="reveal" style="text-align:center">
+      <div class="sl" style="color:var(--saffron);justify-content:center;display:flex">The Craft Behind Every Thread</div>
+      <h2 class="st" style="color:var(--white);text-align:center">From Raw Cotton &amp; Silk<br><em>To Wearable Heritage</em></h2>
+      <p class="si" style="color:rgba(255,255,255,.4);margin:0 auto;text-align:center">Every saree and garment at Vishita is the result of a centuries-old process — hands that know the weight of a yarn, eyes that read the pattern of a loom. This is what makes it irreplaceable.</p>
+    </div>
+    <div class="craft-steps reveal">
+      <div class="craft-step">
+        <div class="craft-icon-wrap">🌱</div>
+        <div class="craft-step-label">Step 01</div>
+        <div class="craft-step-title">Raw Cotton &amp; Silk Sourcing</div>
+        <div class="craft-step-desc">Pure natural cotton fibres and Mulberry silk — sourced from trusted weavers and farms, free from synthetic blends.</div>
+        <div class="craft-arrow">›</div>
+      </div>
+      <div class="craft-step">
+        <div class="craft-icon-wrap">🧶</div>
+        <div class="craft-step-label">Step 02</div>
+        <div class="craft-step-title">Hand-Spinning &amp; Dyeing</div>
+        <div class="craft-step-desc">Threads are hand-spun and dyed using natural pigments — turmeric, indigo, pomegranate. No harsh chemicals, ever.</div>
+        <div class="craft-arrow">›</div>
+      </div>
+      <div class="craft-step">
+        <div class="craft-icon-wrap">🪡</div>
+        <div class="craft-step-label">Step 03</div>
+        <div class="craft-step-title">Handloom Weaving</div>
+        <div class="craft-step-desc">Artisan weavers interlace warp and weft by hand — 6 to 14 hours for a single saree. A machine cannot replicate this.</div>
+        <div class="craft-arrow">›</div>
+      </div>
+      <div class="craft-step">
+        <div class="craft-icon-wrap">✋</div>
+        <div class="craft-step-label">Step 04</div>
+        <div class="craft-step-title">Hand Finishing &amp; QC</div>
+        <div class="craft-step-desc">Each piece is individually inspected, finished, and folded by hand. Every imperfection is actually a signature of authenticity.</div>
+        <div class="craft-arrow">›</div>
+      </div>
+      <div class="craft-step">
+        <div class="craft-icon-wrap">🛍️</div>
+        <div class="craft-step-label">Step 05</div>
+        <div class="craft-step-title">Delivered to You</div>
+        <div class="craft-step-desc">From the loom to your hands — carrying the warmth, soul, and story of the craftsperson who made it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── PROBLEMS ── -->
 <section class="section-full problem-bg" id="s1">
   <div class="section" style="padding-top:0;padding-bottom:0">
@@ -370,6 +456,43 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-b
 </section>
 
 <div class="ornament"><div class="orn-line"></div><div class="orn-sym">✦ &nbsp; ✦ &nbsp; ✦</div><div class="orn-line"></div></div>
+
+<!-- ── DIGITAL TRANSFORMATION ── -->
+<section class="transform-section">
+  <div class="transform-inner">
+    <div class="reveal" style="text-align:center">
+      <div class="sl" style="display:flex;justify-content:center">Your Digital Transformation</div>
+      <h2 class="st" style="text-align:center">Where You Are Today<br>vs. <em>Where You'll Be in 25 Days</em></h2>
+      <div class="divider" style="margin:24px auto 0"></div>
+    </div>
+    <div class="transform-split reveal">
+      <div class="transform-col transform-before">
+        <div class="transform-col-label before-label">Before — Today</div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">Invisible on Google — customers cannot find you online</span></div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">No digital catalogue — sharing photos one by one on WhatsApp</span></div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">No brand story — customers don't understand why handloom costs more</span></div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">Competing on price with machine-made fabric</span></div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">Zero reviews — new customers have no reason to trust you</span></div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">Foot traffic only — limited to whoever walks past your shop</span></div>
+        <div class="transform-item"><span class="t-icon">❌</span><span class="t-text">No 24/7 presence — closed shop means zero sales opportunity</span></div>
+      </div>
+      <div class="transform-arrow-col">
+        <div class="arrow-circle">→</div>
+        <div class="arrow-label">25<br>Days</div>
+      </div>
+      <div class="transform-col transform-after">
+        <div class="transform-col-label after-label">After — 25 Days Later</div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">Top 3 on Google Maps when Latur searches "handloom saree"</span></div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">Shopify store — 20 products live, shareable link anywhere</span></div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">5-page website telling the full story of your craft and heritage</span></div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">Customers educated on handloom value — premium buyers arrive</span></div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">Review strategy live — building 4★+ rating from day one</span></div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">Customers across Latur discover you — online, anytime</span></div>
+        <div class="transform-item"><span class="t-icon">✅</span><span class="t-text">WhatsApp orders while you sleep — 24/7 digital storefront</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ── GMB GUIDE ── -->
 <section class="section-full gmb-bg" id="s4">
